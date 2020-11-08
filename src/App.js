@@ -8,9 +8,14 @@ import Problems from './problems';
 
 function App() {
   var count = 0;
+  const [buttonClicked, setButtonClicked] = useState(false);
+
+
+  
   const [randomVar, setRandomVar] = useState(1); //[name of variable, function to change the value of the variable] = useState(___default value__)
   const handleClick = () => {
     setRandomVar(randomVar + 1);
+    setButtonClicked(true);
   }
   return (
     <div className="App" onClick={() => {
@@ -23,7 +28,8 @@ function App() {
                   Edit <code>src/App.js</code> {count} and save to reload.
                 </p>
         ) : null}
-        <Problems probType= {"Multiply"} probLevel= {"Hard"} />
+        {String(buttonClicked)}
+        <Problems probType={"Divide"} probLevel={"Hard"} />
         <a
           className="App-link"
           href="https://reactjs.org"
