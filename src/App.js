@@ -17,15 +17,15 @@ function App() {
   const handleClick = () => {
     setRandomVar(randomVar + 1);
     setMultiplyButtonClicked(true);
-    console.log((setMultiplyButtonClicked))
+    console.log("Button is clicked")
   }
   return (
 <div>
       <header className="App-header">
-        {multiplyButtonClicked === true ? prob === "Multiply" : null};
+        {multiplyButtonClicked === true ? prob = "Multiply" : null};
 
 
-        <Problems probType={"Multiply"} randomFunction={() => {console.log("This is the button for multiplying");}}/>
+        <Problems probType={prob} randomFunction={() => {console.log("This is the button for multiplying");}}/>
         <button onClick= {() => {handleClick();}}>Multiply Problem</button>
 
 
