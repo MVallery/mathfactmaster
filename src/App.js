@@ -13,29 +13,27 @@ function App() {
 
   
   const [randomVar, setRandomVar] = useState(1); //[name of variable, function to change the value of the variable] = useState(___default value__)
+  var prob = ""
   const handleClick = () => {
     setRandomVar(randomVar + 1);
     setMultiplyButtonClicked(true);
+    console.log((setMultiplyButtonClicked))
   }
   return (
 <div>
-      <header className="App-header" style={{ backgroundColor: randomVar === 5 ? 'red' : 'purple' }}>
-        {multiplyButtonClicked === true ? Problems.probType="Multiply" : null};
+      <header className="App-header">
+        {multiplyButtonClicked === true ? prob === "Multiply" : null};
+
+
+        <Problems probType={"Multiply"} randomFunction={() => {console.log("This is the button for multiplying");}}/>
         <button onClick= {() => {handleClick();}}>Multiply Problem</button>
 
 
-        
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      
       </header>
     </div>
   );
 }
 
 export default App
+
