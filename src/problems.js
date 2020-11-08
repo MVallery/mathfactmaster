@@ -4,22 +4,24 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 function randomMultiply (){
-  var Num1 = Math.floor(Math.random()*15+2)
-  var Num2 = Math.floor(Math.random()*15+2)
+  var E = Math.floor(Math.random()*15+2)
+  var T = Math.floor(Math.random()*15+2)
   return (
     <div>
-      <p>{Num1} * {Num2} = {Num1*Num2}</p>
+      <p>{E} * {T} = {E*T}</p>
     </div>
   )
 
 }
 
-function randomMultiply (){
-  var Num1 = Math.floor(Math.random()*100+4)
-  var Num2 = Math.floor(Math.random()*9+2)
+function randomDivide (){
+ 
+  var G = Math.floor(Math.random()*9+2)
+  var E = Math.floor(Math.random()*9+2)
+  var T = E*G
   return (
     <div>
-      <p>{Num1} / {Num2} = {Num1/Num2}</p>
+      <p>{T} / {G} = {E}</p>
     </div>
   )
 
