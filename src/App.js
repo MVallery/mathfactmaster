@@ -16,7 +16,10 @@ function App() {
   const [randomVar, setRandomVar] = useState(1); //[name of variable, function to change the value of the variable] = useState(___default value__)
   var prob = ""
   const handleMultiplyClick = () => {
-    setMultiplyButtonClicked(true);
+    setMultiplyButtonClicked(false);
+    setTimeout(() => {
+      setMultiplyButtonClicked(true);
+    }, 100);
     // setDivideButtonClicked(false);
     console.log("Multiply Button is clicked")
 
@@ -26,16 +29,15 @@ function App() {
   //   // setMultiplyButtonClicked(false);
   //   console.log("DivideButton is clicked")
   // }
+  prob = multiplyButtonClicked === true ? "multiply" : null;
   return (
 <div>
       <header className="App-header">
-        {multiplyButtonClicked === true ? prob = "multiply" : null};
+        {/* {multiplyButtonClicked === true ? prob = "multiply" : null}; */}
         {/* {divideButtonClicked === true ? prob = "divide" : null}; */}
 
 
-
         <Problems probType={prob} randomFunction={() => {console.log("This is the button for multiplying");}}/>
-        {console.log (prob)}
         <button onClick= {() => {handleMultiplyClick();}}>Multiply Problem</button>
         {/* <button onClick= {() => {handleDivideClick();}}>Divide Problem</button> */}
 
