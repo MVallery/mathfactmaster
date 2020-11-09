@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -36,8 +35,8 @@ class Problems extends React.Component {
     console.log(this.props);
       return (
         <div>
-          {this.props.probType === "Multiply" ? randomMultiply() : null}
-          {this.props.probType === "Divide" ? randomDivide() : null}
+          {this.props.probType === "multiply" ? randomMultiply() : null}
+          {this.props.probType === "divide" ? randomDivide() : null}
         </div>
       )
   }
