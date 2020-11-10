@@ -10,11 +10,9 @@ function randomMultiply (){
       <p>{E} * {T} = {E*T}</p>
     </div>
   )
-
 }
 
 function randomDivide (){
- 
   var G = Math.floor(Math.random()*9+2)
   var E = Math.floor(Math.random()*9+2)
   var T = E*G
@@ -35,7 +33,7 @@ class Problems extends React.Component {
     console.log(this.props);
       return (
         <div>
-          {this.props.questionList.length > 0 ? this.props.questionList[0] : null}
+          {this.props.questionList.length > 0 ? this.props.questionList : null}
         </div>
       )
   }
