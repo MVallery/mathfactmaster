@@ -35,8 +35,7 @@ class Problems extends React.Component {
     console.log(this.props);
       return (
         <div>
-          {this.props.probType === "multiply" ? randomMultiply() : null}
-          {this.props.probType === "divide" ? randomDivide() : null}
+          {this.props.questionList.length > 0 ? this.props.questionList[0] : null}
         </div>
       )
   }
@@ -53,6 +52,7 @@ class Problems extends React.Component {
 Problems.propTypes = {
   probType: PropTypes.any,
   probLevel: PropTypes.any,
+  questionList: PropTypes.array,
 }
 export default Problems;
 
