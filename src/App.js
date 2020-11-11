@@ -45,7 +45,7 @@ const handleSubmitAnswer = (e) => {
     setMessage(randomMessage)
   }
   else {
-    setMessage("Uh oh try again! The right answer was " + correctAnswer)
+    setTimeout(setMessage("Uh oh try again! The right answer was " + correctAnswer),3000)
   }
   if (questionType == "multiply") {
     handleMultiplyClick()
@@ -62,13 +62,11 @@ const handleSubmitAnswer = (e) => {
         <Problems questionList={questionList} />
         <button onClick= {() => {handleMultiplyClick();}}>Multiply Problem</button>
         <button onClick= {() => {handleDivideClick();}}>Divide Problem</button>
-        <form onSubmit = {handleSubmitAnswer}>
         <textarea onChange= {handleInputAnswer}
                   onSubmit = {handleSubmitAnswer}
                   value = {inputAnswer}
                   placeholder= "input answer"/>
-        <button type= "submit" form className="commentForm" onSubmit={handleSubmitAnswer}>Submit</button>
-        </form>
+        <button type= "submit" form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
         {message}
       </header>
     </div>
