@@ -39,22 +39,29 @@ function App() {
   }
 const handleSubmitAnswer = (e) => {
   e.preventDefault();
+ 
   var goodMessages = ["Great job", "Awesome!", "Wow keep it up!", "You got it!!"]
   var randomMessage = goodMessages[Math.floor(Math.random()*goodMessages.length)]
-  if (inputAnswer == correctAnswer) {
+  if (inputAnswer === String(correctAnswer)) {
     setMessage(randomMessage)
   }
   else {
-    setTimeout(setMessage("Uh oh try again! The right answer was " + correctAnswer),3000)
+    setMessage("Uh oh try again! The right answer was " + correctAnswer)
   }
-  if (questionType == "multiply") {
+  if (questionType === "multiply") {
     handleMultiplyClick()
   }
   else {
     handleDivideClick()
   }
+  setInputAnswer("")
 }
-
+const keypress = (e) => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    handleSubmitAnswer(e);
+  }
+}
 
   return (
 <div>
@@ -65,6 +72,7 @@ const handleSubmitAnswer = (e) => {
         <textarea onChange= {handleInputAnswer}
                   onSubmit = {handleSubmitAnswer}
                   value = {inputAnswer}
+                  onKeyPress={keypress}
                   placeholder= "input answer"/>
         <button type= "submit" form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
         {message}
