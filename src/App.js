@@ -64,16 +64,19 @@ const keypress = (e) => {
 }
 
   return (
-<div>
-      <header className="App-header">
+<div class="container" style={{ backgroundColor: 'black'}}>
+      <header className="App-header" >
         <Problems questionList={questionList} />
         <button onClick= {() => {handleMultiplyClick();}}>Multiply Problem</button>
         <button onClick= {() => {handleDivideClick();}}>Divide Problem</button>
-        <textarea onChange= {handleInputAnswer}
+        <textarea id = "1"
+        autofocus= "autofocus"
+                  onChange= {handleInputAnswer}
                   onSubmit = {handleSubmitAnswer}
                   value = {inputAnswer}
                   onKeyPress={keypress}
                   placeholder= "input answer"/>
+        {/* <script type="text/javascript">document.1.theFieldID.focus();</script> */}
         <button type= "submit" form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
         {message}
       </header>
