@@ -24,7 +24,6 @@ function App() {
   }
 
   const handleDivideClick = (e) => {
-    e.preventDefault();
     var G = Math.floor(Math.random()*9+2);
     var answer = Math.floor(Math.random()*9+2);
     var T = answer*G
@@ -97,14 +96,20 @@ const keypress = (e) => {
 
     <div className="problem">
     <Problems questionList={questionList} />
-    </div>
-        <textarea autoFocus= {autoFocus}
+    <input type="text" onChange={handleInputAnswer} 
+                        onSubmit = {handleSubmitAnswer}
+                        value = {inputAnswer}
+                        onKeyPress = {keypress}
+                        placeholder= "input answer"></input>
+    {/* <textarea autoFocus= {autoFocus}
                   onChange= {handleInputAnswer}
                   onSubmit = {handleSubmitAnswer}
                   value = {inputAnswer}
                   onKeyPress={keypress}
-                  placeholder= "input answer"/>
+                  placeholder= "input answer"/> */}
         <button type= "submit" onKeyPress={keypress}form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
+    </div>
+
         </div>
 
       <header className="App-header" >

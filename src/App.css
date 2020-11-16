@@ -49,8 +49,29 @@
  justify-content:center;
  flex-direction:column;
 }
-.problem {
-  border: 2px solid purple;
-  border-radius: 30;
-  background: rgb(127, 155, 127)
+@keyframes Problem-animation {
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:200px; top:0px;}
+  50%  {background-color:blue; left:200px; top:200px;}
+  75%  {background-color:green; left:0px; top:200px;}
+  100% {background-color:red; left:0px; top:0px;}
 }
+.problem {
+  border: 9px solid purple;
+  color: white;
+  font-weight:bold;
+  font-size: 19px;
+  font-style: arial;
+  text-shadow: 2px 2px 5px rgb(68, 68, 68);
+  padding: 50px;
+  border-radius: 5px;
+  height: 100px;
+  width: 70px;
+  text-align:center;
+  justify-content:center;
+  animation-name: Problem-animation;
+  animation-duration: 4s;
+  /* background: rgb(127, 155, 127) */
+  /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
+}
+
