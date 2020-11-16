@@ -14,8 +14,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #5b7ab9;
+  min-height: 10vh;
   display: flex;
   /* flex-direction: column; */
   align-items: center;
@@ -38,5 +38,19 @@
 }
 .container {
   display:flex;
+  justify-content:center;
   align-items:center;
+}
+.Giant-container {
+  display:flex;
+  height: 100vh;
+  width: 100vw;
+  align-items:center;
+ justify-content:center;
+ flex-direction:column;
+}
+.problem {
+  border: 2px solid purple;
+  border-radius: 30;
+  background: rgb(127, 155, 127)
 }

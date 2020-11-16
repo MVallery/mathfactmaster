@@ -7,7 +7,8 @@ function App() {
   const [correctAnswer, setCorrectAnswer] = useState([])
   const [inputAnswer, setInputAnswer] = useState("")
   const [message, setMessage] = useState("")
-  const [questionType, setQuestionType] = useState("")
+  const [questionType, setQuestionType] = useState("multiply")
+  const [autoFocus, setAutoFocus] = useState("autoFocus")
   const handleMultiplyClick = () => {
     var E = Math.floor(Math.random()*9+2);
     var G = Math.floor(Math.random()*9+2);
@@ -17,7 +18,9 @@ function App() {
     // tempList.push(question);
     setQuestionList([question]);
     setCorrectAnswer([answer])
-    setQuestionType(["multiply"])
+    setQuestionType("multiply")
+    console.log(questionType)
+    // setAutoFocus(["autoFocus"])
   }
 
   const handleDivideClick = () => {
@@ -29,7 +32,8 @@ function App() {
     // tempList.push(question);
     setQuestionList([question]);
     setCorrectAnswer([answer])
-    setQuestionType(["divide"])
+    setQuestionType("divide")
+    // setAutoFocus(["autoFocus"])
 
   }
   const handleInputAnswer = (e) => {
@@ -44,17 +48,22 @@ const handleSubmitAnswer = (e) => {
   var randomMessage = goodMessages[Math.floor(Math.random()*goodMessages.length)]
   if (inputAnswer === String(correctAnswer)) {
     setMessage(randomMessage)
+    console.log(randomMessage)
+    
   }
   else {
     setMessage("Uh oh try again! The right answer was " + correctAnswer)
   }
+
+  setInputAnswer("")
+  setTimeout(() => {setMessage ("")}, 3000)
+  console.log(questionType)
   if (questionType === "multiply") {
     handleMultiplyClick()
   }
   else {
     handleDivideClick()
   }
-  setInputAnswer("")
 }
 const keypress = (e) => {
   if(e.key === "Enter") {
@@ -64,20 +73,27 @@ const keypress = (e) => {
 }
 
   return (
-<div class="container" style={{ backgroundColor: 'black'}}>
-      <header className="App-header" >
-        <Problems questionList={questionList} />
+<div className="Giant-container">
+<div className="container">
         <button onClick= {() => {handleMultiplyClick();}}>Multiply Problem</button>
-        <button onClick= {() => {handleDivideClick();}}>Divide Problem</button>
-        <textarea id = "1"
-        autofocus= "autofocus"
+        <button onClick= {() => {handleDivideClick();}}>Divide Problem</button></div>
+  <div className="container">
+
+    <div className="problem">
+    <Problems questionList={questionList} />
+    </div>
+        <textarea autoFocus= {autoFocus}
                   onChange= {handleInputAnswer}
                   onSubmit = {handleSubmitAnswer}
                   value = {inputAnswer}
                   onKeyPress={keypress}
                   placeholder= "input answer"/>
-        {/* <script type="text/javascript">document.1.theFieldID.focus();</script> */}
-        <button type= "submit" form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
+        <button type= "submit" onKeyPress={keypress}form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
+        </div>
+
+      <header className="App-header" >
+
+
         {message}
       </header>
     </div>
