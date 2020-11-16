@@ -20,10 +20,11 @@ function App() {
     setCorrectAnswer([answer])
     setQuestionType("multiply")
     console.log(questionType)
-    // setAutoFocus(["autoFocus"])
+    setAutoFocus("autoFocus")
   }
 
-  const handleDivideClick = () => {
+  const handleDivideClick = (e) => {
+    e.preventDefault();
     var G = Math.floor(Math.random()*9+2);
     var answer = Math.floor(Math.random()*9+2);
     var T = answer*G
@@ -33,7 +34,7 @@ function App() {
     setQuestionList([question]);
     setCorrectAnswer([answer])
     setQuestionType("divide")
-    // setAutoFocus(["autoFocus"])
+    setAutoFocus("autoFocus")
 
   }
   const handleInputAnswer = (e) => {
@@ -44,26 +45,41 @@ function App() {
 const handleSubmitAnswer = (e) => {
   e.preventDefault();
  
-  var goodMessages = ["Great job", "Awesome!", "Wow keep it up!", "You got it!!"]
-  var randomMessage = goodMessages[Math.floor(Math.random()*goodMessages.length)]
+
   if (inputAnswer === String(correctAnswer)) {
+    var goodMessages = ["Great job", "Awesome!", "Wow keep it up!", "You got it!!"]
+    var randomMessage = goodMessages[Math.floor(Math.random()*goodMessages.length)]
     setMessage(randomMessage)
     console.log(randomMessage)
-    
+    if (questionType === "multiply") {
+      setTimeout(handleMultiplyClick, 2000)
+      setTimeout(() => {setMessage ("")}, 2000)
+    }
+    else {
+      setTimeout(handleDivideClick, 2000)
+      setTimeout(() => {setMessage ("")}, 2000)
+    }
   }
   else {
-    setMessage("Uh oh try again! The right answer was " + correctAnswer)
+    var badMessages = ["Uh oh try again! ", "So close, yet so far away ", "Better luck next time! ", "I wish this was good news...", "We can't all be perfect. ", "Ouch, that sucks try again! "]
+    var randomMessage = badMessages[Math.floor(Math.random()*badMessages.length)]
+    setMessage("Your answer: " + inputAnswer + " " + randomMessage + questionList + " " + correctAnswer)
+    if (questionType === "multiply") {
+      setTimeout(handleMultiplyClick, 5000)
+      setTimeout(() => {setMessage ("")}, 5000)
+    }
+    else {
+      setTimeout(handleDivideClick, 5000)
+      setTimeout(() => {setMessage ("")}, 5000)
+    }
   }
 
   setInputAnswer("")
-  setTimeout(() => {setMessage ("")}, 3000)
+  
   console.log(questionType)
-  if (questionType === "multiply") {
-    handleMultiplyClick()
-  }
-  else {
-    handleDivideClick()
-  }
+
+  // setTimeout(newQuestion, 5000)
+
 }
 const keypress = (e) => {
   if(e.key === "Enter") {
