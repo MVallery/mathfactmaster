@@ -89,6 +89,12 @@ const keypress = (e) => {
 
   return (
 <div className="Giant-container">
+<ul>
+  <li><a href="default.asp">Home</a></li>
+  <li><a href="news.asp">News</a></li>
+  <li><a href="contact.asp">Contact</a></li>
+  <li><a href="about.asp">About</a></li>
+</ul>
 <div className="container">
         <button onClick= {() => {handleMultiplyClick();}}>Multiply Problem</button>
         <button onClick= {() => {handleDivideClick();}}>Divide Problem</button></div>
@@ -98,6 +104,7 @@ const keypress = (e) => {
     <Problems questionList={questionList} />
     <input type="text" onChange={handleInputAnswer} 
                         onSubmit = {handleSubmitAnswer}
+                        autoFocus= {autoFocus}
                         value = {inputAnswer}
                         onKeyPress = {keypress}
                         placeholder= "input answer"></input>

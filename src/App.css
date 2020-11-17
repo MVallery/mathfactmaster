@@ -71,7 +71,36 @@
   justify-content:center;
   animation-name: Problem-animation;
   animation-duration: 4s;
-  /* background: rgb(127, 155, 127) */
+  background: rgb(127, 155, 127);
+  box-shadow: 5px 10px 8px #888888;
   /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
 }
 
+input[type="text"] {
+  width: 100px;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow:hidden;
+  background-color: rgb(121, 107, 155);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+li {
+  float:left;
+
+}
+li a {
+  display:block;
+  color:white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: rgb(180, 111, 169);
+}
