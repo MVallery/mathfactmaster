@@ -79,6 +79,8 @@
 }
 .card-top {
   background: rgb(121, 107, 155);
+  margin: 0;
+  padding: 0;
   color: white;
   font-size: 20px;
   justify-content:top;
@@ -88,7 +90,7 @@ input[type="text"] {
   width: 100px;
   height:50px;
 }
-ul {
+.ul-nav {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -112,4 +114,17 @@ li a {
 
 li a:hover {
   background-color: rgb(180, 111, 169);
+}
+.ul-completedQ {
+  list-style-type:none;
+  position: fixed;
+  bottom: 0;
+  /* bottom: 1px;
+  left: 2px; */
+  background-color: purple;
+}
+.li-completedQ {
+  list-style-type:circle;
+  color:white;
+  font-size: 15px;
 }

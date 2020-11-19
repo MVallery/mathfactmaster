@@ -105,7 +105,7 @@ const keypress = (e) => {
 
   return (
 <div className="Giant-container">
-<ul>
+<ul className= "ul-nav">
   <li><a href="default.asp">Home</a></li>
   <li><a href="news.asp">Multiplying Help</a></li>
   <li><a href="contact.asp">Dividing Help</a></li>
@@ -135,15 +135,6 @@ const keypress = (e) => {
         <button type= "submit" onKeyPress={keypress}form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
 
 
-
-
-    
-
-
-
-
-
-
     </div>
 
         </div>
@@ -153,9 +144,9 @@ const keypress = (e) => {
 
         {message}
         <div>
-        <ul>
+        <ul className="ul-completedQ">
       {completedQList.map((value, index) => {
-        return <li key={index}>{value}</li>
+        return <li className="li-completedQ" key={index}>{value}</li>
       })}
     </ul>
     </div>
