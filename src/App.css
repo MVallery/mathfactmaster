@@ -56,28 +56,37 @@
   75%  {background-color:green; left:0px; top:200px;}
   100% {background-color:red; left:0px; top:0px;}
 }
+
 .problem {
   border: 9px solid purple;
-  color: white;
+  color: rgb(117, 76, 133);
   font-weight:bold;
-  font-size: 19px;
+  font-size: 50px;
   font-style: arial;
-  text-shadow: 2px 2px 5px rgb(68, 68, 68);
-  padding: 50px;
+  text-shadow: 1px 1px 1px rgb(68, 68, 68);
+  padding: 5px;
+  
   border-radius: 5px;
-  height: 100px;
-  width: 70px;
+  height: 300px;
+  width: 500px;
   text-align:center;
   justify-content:center;
-  animation-name: Problem-animation;
-  animation-duration: 4s;
-  background: rgb(127, 155, 127);
+  /* animation-name: Problem-animation;
+  animation-duration: 4s; */
+  background: rgb(255, 255, 255);
   box-shadow: 5px 10px 8px #888888;
   /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
 }
+.card-top {
+  background: rgb(121, 107, 155);
+  color: white;
+  font-size: 20px;
+  justify-content:top;
 
+}
 input[type="text"] {
   width: 100px;
+  height:50px;
 }
 ul {
   list-style-type: none;

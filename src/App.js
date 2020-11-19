@@ -9,11 +9,14 @@ function App() {
   const [message, setMessage] = useState("")
   const [questionType, setQuestionType] = useState("multiply")
   const [autoFocus, setAutoFocus] = useState("autoFocus")
+  const [count, setCount] = useState(0)
+  const [time, setTime] = useState(0)
+  const [completedQList, setCompletedQList] = useState([])
   const handleMultiplyClick = () => {
     var E = Math.floor(Math.random()*9+2);
     var G = Math.floor(Math.random()*9+2);
     var answer = E*G
-    var question = E+" * "+G+" = ";
+    var question = E+" × "+G+" = ";
     // let tempList = questionList;
     // tempList.push(question);
     setQuestionList([question]);
@@ -27,7 +30,7 @@ function App() {
     var G = Math.floor(Math.random()*9+2);
     var answer = Math.floor(Math.random()*9+2);
     var T = answer*G
-    var question = T+ " / "+G+" = ";
+    var question = T+ " ÷ "+G+" = ";
     // let tempList = questionList;
     // tempList.push(question);
     setQuestionList([question]);
@@ -48,8 +51,15 @@ const handleSubmitAnswer = (e) => {
   if (inputAnswer === String(correctAnswer)) {
     var goodMessages = ["Great job", "Awesome!", "Wow keep it up!", "You got it!!"]
     var randomMessage = goodMessages[Math.floor(Math.random()*goodMessages.length)]
+    
     setMessage(randomMessage)
-    console.log(randomMessage)
+    setCount(count+1)
+    
+    let tempList = completedQList
+    tempList.push(questionList + " " + inputAnswer + ": Correct!")
+    setCompletedQList(tempList)
+    console.log(completedQList)
+
     if (questionType === "multiply") {
       setTimeout(handleMultiplyClick, 2000)
       setTimeout(() => {setMessage ("")}, 2000)
@@ -62,6 +72,11 @@ const handleSubmitAnswer = (e) => {
   else {
     var badMessages = ["Uh oh try again! ", "So close, yet so far away ", "Better luck next time! ", "I wish this was good news...", "We can't all be perfect. ", "Ouch, that sucks try again! "]
     var randomMessage = badMessages[Math.floor(Math.random()*badMessages.length)]
+    let tempList = completedQList
+    tempList.push(questionList + " " + inputAnswer + ": Wrong (Correct answer: " + correctAnswer + ")")
+    setCompletedQList(tempList)
+    console.log(completedQList)
+
     setMessage("Your answer: " + inputAnswer + " " + randomMessage + questionList + " " + correctAnswer)
     if (questionType === "multiply") {
       setTimeout(handleMultiplyClick, 5000)
@@ -80,6 +95,7 @@ const handleSubmitAnswer = (e) => {
   // setTimeout(newQuestion, 5000)
 
 }
+
 const keypress = (e) => {
   if(e.key === "Enter") {
     e.preventDefault();
@@ -91,9 +107,8 @@ const keypress = (e) => {
 <div className="Giant-container">
 <ul>
   <li><a href="default.asp">Home</a></li>
-  <li><a href="news.asp">News</a></li>
-  <li><a href="contact.asp">Contact</a></li>
-  <li><a href="about.asp">About</a></li>
+  <li><a href="news.asp">Multiplying Help</a></li>
+  <li><a href="contact.asp">Dividing Help</a></li>
 </ul>
 <div className="container">
         <button onClick= {() => {handleMultiplyClick();}}>Multiply Problem</button>
@@ -101,6 +116,9 @@ const keypress = (e) => {
   <div className="container">
 
     <div className="problem">
+    <div className="card-top">
+  <p>Number Correct: {count}</p>
+    </div>
     <Problems questionList={questionList} />
     <input type="text" onChange={handleInputAnswer} 
                         onSubmit = {handleSubmitAnswer}
@@ -115,6 +133,17 @@ const keypress = (e) => {
                   onKeyPress={keypress}
                   placeholder= "input answer"/> */}
         <button type= "submit" onKeyPress={keypress}form className="commentForm" onClick={handleSubmitAnswer}>Submit</button>
+
+
+
+
+    
+
+
+
+
+
+
     </div>
 
         </div>
@@ -123,6 +152,13 @@ const keypress = (e) => {
 
 
         {message}
+        <div>
+        <ul>
+      {completedQList.map((value, index) => {
+        return <li key={index}>{value}</li>
+      })}
+    </ul>
+    </div>
       </header>
     </div>
   )

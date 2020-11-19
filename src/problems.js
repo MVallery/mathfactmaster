@@ -7,7 +7,7 @@ function randomMultiply (){
   var T = Math.floor(Math.random()*15+2)
   return (
     <div>
-      <p>{E} * {T} = {E*T}</p>
+      <p>{E} × {T} = {E*T}</p>
     </div>
   )
 }
@@ -18,7 +18,7 @@ function randomDivide (){
   var T = E*G
   return (
     <div>
-      <p>{T} / {G} = {E}</p>
+      <p>{T} ÷ {G} = {E}</p>
     </div>
   )
 
