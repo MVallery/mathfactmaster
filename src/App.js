@@ -4,25 +4,39 @@ import Problems from "./problems";
 
 function App() {
   const [questionList, setQuestionList] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState([]);
   const [inputAnswer, setInputAnswer] = useState("");
   const [message, setMessage] = useState("");
-  const [questionType, setQuestionType] = useState("multiply");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
   const [time, setTime] = useState(0);
-  const [completedQList, setCompletedQList] = useState([]);
   const [livesLeft, setLivesLeft] = useState(3);
-  const [wrongAnswerList, setWrongAnswerList] = useState([]);
   const [accuracy, setAccuracy] = useState("");
+
+  const [wrongAnswerList, setWrongAnswerList] = useState([]);
+  const [completedQList, setCompletedQList] = useState([]);
+  // const [questionType, setQuestionType] = useState("multiply");
+  // const [correctAnswer, setCorrectAnswer] = useState([]);
+
+
 
   const handleMultiplyClick = () => {
     var E = Math.floor(Math.random() * 9 + 2);
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
     var question = E + " × " + G + " = ";
+    console.log(question)
+    console.log(questionList)
     // let tempList = questionList;
     // tempList.push(question);
+    var wrongAnswerList = questionList.filter((question) => {
+      var tempList = []
+      if (question.status === "wrong"){
+        tempList.push(question)
+        
+      }
+      console.log(tempList)
+      
+    })
 
     if (wrongAnswerList.length > 0) {
       var wrong = 
@@ -31,23 +45,27 @@ function App() {
           console.log("insert wrong question")
           question = wrong
         }
-        setQuestionList([question]);
-        setCorrectAnswer([answer]);
-      // const wrongPractice = [wrong, wrong, question];
-      // var question =
-      //   wrongPractice[Math.floor(Math.random() * wrongPractice.length)];
-      // console.log(wrong);
-      // console.log(wrongPractice);
-      // console.log(question);
-      // console.log(wrongAnswerList)
-    } else {
-      setQuestionList([question]);
-      setCorrectAnswer([answer]);
-    }
+    } 
 
-    setQuestionType("multiply");
-    console.log(questionType);
+    var questionData = {
+      text: question,
+      type: 'multiply',
+      correctAnswer: answer,
+      userAnswer: null,
+      status: 'unanswered'
+    };
+
+    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+    tempQuestionList.push(questionData);
+    console.log(tempQuestionList)
+    // questionList = tempQuestionList;
+    setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
+
+    // questionList[0].text
+    // var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+    // tempQuestionList[0].text = "something";
+    // setQuestionList(tempQuestionList);
   };
 
   const handleDivideClick = (e) => {
@@ -57,40 +75,51 @@ function App() {
     var question = T + " ÷ " + G + " = ";
     // let tempList = questionList;
     // tempList.push(question);
-    setQuestionList([question]);
-    setCorrectAnswer([answer]);
-    setQuestionType("divide");
+    // setQuestionList([question]);
+    // setCorrectAnswer([answer]);
+    // setQuestionType("divide");
     setAutoFocus("autoFocus");
   };
   const handleInputAnswer = (e) => {
-    setInputAnswer(e.target.value);
-    console.log(inputAnswer);
-    console.log(message);
+    e.preventDefault();
+    var tempList = questionList;
+    tempList[tempList.length-1].userAnswer = e.target.value;
+
+    // tempList.length>0 ? tempList[tempList.length-1].userAnswer = e.target.value : "";
+    setQuestionList(tempList);
+    // setInputAnswer(e.target.value);
   };
   const handleSubmitAnswer = (e) => {
     e.preventDefault();
 
-    if (completedQList.length < 10) {
-      let tempList = completedQList;
+    if (questionList.length < 10) {
+      // let tempList = completedQList;
 
-      if (inputAnswer === String(correctAnswer)) {
+      if (questionList[questionList.length-1].correctAnswer === String(questionList[questionList.length-1].userAnswer)) {
         var goodMessages = [
           "Great job",
           "Awesome!",
           "Wow keep it up!",
           "You got it!!",
         ];
+        var tempList = questionList;
+        tempList[tempList.length-1].status = "correct!";
+        setQuestionList(tempList)
         var randomMessage =
           goodMessages[Math.floor(Math.random() * goodMessages.length)];
 
         setMessage(randomMessage);
         setCount(count + 1);
+// THIS PART IS WEIRD
+        // tempList.push(questionList[questionList.length-1].text + " " + questionList[questionList.length-1].userAnswer + ": Correct!");
+        // var completedQList =
+        // questionList.map((question, index) => {
+        //   return question.text + " " + question.answer + " " + question.status;
+        // })
+        
+        // setCompletedQList(tempList);
 
-        tempList.push(questionList + " " + inputAnswer + ": Correct!");
-        setCompletedQList(tempList);
-        console.log(completedQList);
-
-        if (questionType === "multiply") {
+        if (questionList[questionList.length-1].type === "multiply") {
           setTimeout(handleMultiplyClick, 1000);
           setTimeout(() => {
             setMessage("");
@@ -112,23 +141,23 @@ function App() {
         ];
         var randomMessage =
           badMessages[Math.floor(Math.random() * badMessages.length)];
+        var tempList = [];
         tempList.push(
-          questionList +
+          questionList[questionList.length-1].text +
             " " +
-            inputAnswer +
+            questionList[questionList.length-1].userAnswer +
             ": Wrong (Correct answer: " +
-            correctAnswer +
+            questionList[questionList.length-1].correctAnswer +
             ")"
         );
         let tempWrongList = wrongAnswerList;
-        tempWrongList.push(questionList[0]);
-        setWrongAnswerList(tempWrongList);
-        console.log(completedQList);
+        tempWrongList.push(questionList[questionList.length-1].text);
+        // setWrongAnswerList(tempWrongList);
 
         setMessage(
-          "Your answer: " + inputAnswer + " " + randomMessage + questionList + " " + correctAnswer
+          "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
-        if (questionType === "multiply") {
+        if (questionList[questionList.length-1].type === "multiply") {
           setTimeout(handleMultiplyClick, 3000);
           setTimeout(() => {
             setMessage("");
@@ -140,7 +169,7 @@ function App() {
           }, 4000);
         }
       }
-
+    // Not sure how to change this....***
       setInputAnswer("");
 
       // setTimeout(newQuestion, 5000)
@@ -148,8 +177,8 @@ function App() {
       setAccuracy(
         (((10 - wrongAnswerList.length) / 10) * 100).toString() + " %"
       );
-      console.log(accuracy);
-      setCompletedQList([]);
+      // console.log(accuracy);
+      // setCompletedQList([]);
     }
   };
 
@@ -160,13 +189,13 @@ function App() {
     }
   };
   const questionCompletedDisplay = () => {
-    if (completedQList.length > 9) {
+    if (questionList.length > 9) {
       return (
         <ul className="ul-completedQ">
-          {completedQList.map((value, index) => {
+          {completedQList.map((question, index) => {
             return (
               <li className="li-completedQ" key={index}>
-                {value}
+                {question.text + " " + question.answer + " " + question.status}
               </li>
             );
           })}
@@ -210,13 +239,15 @@ function App() {
           <div className="card-top">
             <p>Number Correct: {count}</p>
           </div>
-          <Problems questionList={questionList} />
+          {console.log(questionList)}
+          
+          <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
           <input
             type="text"
             onChange={handleInputAnswer}
             onSubmit={handleSubmitAnswer}
             autoFocus={autoFocus}
-            value={inputAnswer}
+            value={inputAnswer} //how to set this using objects?
             onKeyPress={keypress}
             placeholder="input answer"
           ></input>
