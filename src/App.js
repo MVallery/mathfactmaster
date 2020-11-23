@@ -10,7 +10,9 @@ function App() {
   const [message, setMessage] = useState("");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
+  const [stars, setStars] = useState("")
   // const [time, setTime] = useState(0);
+
   // const [livesLeft, setLivesLeft] = useState(3);
   const [accuracy, setAccuracy] = useState("");
 
@@ -105,6 +107,10 @@ function App() {
       // let tempList = completedQList;
 
       if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
+        
+        
+        
+        
         var goodMessages = [
           "Great job",
           "Awesome!",
@@ -119,6 +125,25 @@ function App() {
 
         setMessage(randomMessage);
         setCount(count + 1);
+        setStars({Star})
+        // setStars(<img className= "star" src={Star}></img>)
+        const star = (c) => {
+          var i
+          for (i=0; i<c; i++) {
+            var tempStar = stars;
+            tempStar({Star})
+            stars(tempStar)
+            // {Star}
+            
+              // console.log("This is a star")
+              
+        
+            
+          };
+          // return (starImage)
+      
+        };
+        setStars(star);
 // THIS PART IS WEIRD
         // tempList.push(questionList[questionList.length-1].text + " " + questionList[questionList.length-1].userAnswer + ": Correct!");
         // var completedQList =
@@ -199,16 +224,31 @@ function App() {
       // setCompletedQList([]);
     };
   };
-  const star = (count) => {
-    var i
-    for (i=0; i<count; i++) {
+  const starImages = (c) => {
+    if (c === 1) {
       return (
         <img className= "star" src={Star}></img>
-  
       );
     };
+    if (c === 2) {
+      return (
+        <div>
+        <img className= "star" src={Star}></img>
+        <img className= "star" src={Star}></img>
+        </div>
+      );
+    }
+    if (c > 2) {
+      return (
+        <div>
+        <img className= "star" src={Star}></img>;
+        <img className= "star" src={Star}></img>;
+        <img className= "star" src={Star}></img>;
+        </div>
+      )
+    }
 
-  };
+  }
   const keypress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -298,7 +338,20 @@ function App() {
           >
             Submit
           </button>
-          {star(count)}
+          
+        {/* {const star = (count) => {
+          var i
+          for (i=0; i<count; i++) {
+            
+              console.log("This is a star")
+        
+            
+          };
+      
+        };} */}
+        {starImages(count)}
+'
+          {/* {star(count)} */}
 
         </div>
       </div>
