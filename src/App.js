@@ -4,21 +4,23 @@ import Problems from "./problems";
 
 function App() {
   const [questionList, setQuestionList] = useState([]);
-  const [inputAnswer, setInputAnswer] = useState("");
+  // const [inputAnswer, setInputAnswer] = useState("");
   const [message, setMessage] = useState("");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
-  const [time, setTime] = useState(0);
-  const [livesLeft, setLivesLeft] = useState(3);
+  // const [time, setTime] = useState(0);
+  // const [livesLeft, setLivesLeft] = useState(3);
   const [accuracy, setAccuracy] = useState("");
 
-  const [wrongAnswerList, setWrongAnswerList] = useState([]);
-  const [completedQList, setCompletedQList] = useState([]);
+  // const [wrongAnswerList, setWrongAnswerList] = useState([]);
+  // const [completedQList, setCompletedQList] = useState([]);
   // const [questionType, setQuestionType] = useState("multiply");
   // const [correctAnswer, setCorrectAnswer] = useState([]);
+  function ClearFields() {
 
+    document.getElementById("inputAnswer").value = "";
 
-
+}
   const handleMultiplyClick = () => {
     var E = Math.floor(Math.random() * 9 + 2);
     var G = Math.floor(Math.random() * 9 + 2);
@@ -32,10 +34,11 @@ function App() {
       var tempList = []
       if (question.status === "wrong"){
         tempList.push(question)
-        
       }
+      return (
+        tempList
+      );
       console.log(tempList)
-      
     })
 
     if (wrongAnswerList.length > 0) {
@@ -51,7 +54,7 @@ function App() {
       text: question,
       type: 'multiply',
       correctAnswer: answer,
-      userAnswer: null,
+      userAnswer: "",
       status: 'unanswered'
     };
 
@@ -87,15 +90,18 @@ function App() {
 
     // tempList.length>0 ? tempList[tempList.length-1].userAnswer = e.target.value : "";
     setQuestionList(tempList);
+    console.log(questionList)
+    console.log(questionList[questionList.length-1].userAnswer)
     // setInputAnswer(e.target.value);
   };
   const handleSubmitAnswer = (e) => {
+    var wrongAnswerList = []
     e.preventDefault();
 
     if (questionList.length < 10) {
       // let tempList = completedQList;
 
-      if (questionList[questionList.length-1].correctAnswer === String(questionList[questionList.length-1].userAnswer)) {
+      if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
         var goodMessages = [
           "Great job",
           "Awesome!",
@@ -121,6 +127,7 @@ function App() {
 
         if (questionList[questionList.length-1].type === "multiply") {
           setTimeout(handleMultiplyClick, 1000);
+          console.log("CHecking if type=multiply")
           setTimeout(() => {
             setMessage("");
           }, 1000);
@@ -158,6 +165,7 @@ function App() {
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
         if (questionList[questionList.length-1].type === "multiply") {
+          console.log("this is the check")
           setTimeout(handleMultiplyClick, 3000);
           setTimeout(() => {
             setMessage("");
@@ -169,8 +177,12 @@ function App() {
           }, 4000);
         }
       }
-    // Not sure how to change this....***
-      setInputAnswer("");
+    // Not sure how to change this so that it doesn't clear out the actual userInput but still clears out the input box....***
+    // var tempList = questionList;
+    // tempList[tempList.length-1].userAnswer = ""
+    // setQuestionList(tempList)
+
+      // setInputAnswer("");
 
       // setTimeout(newQuestion, 5000)
     } else {
@@ -192,7 +204,7 @@ function App() {
     if (questionList.length > 9) {
       return (
         <ul className="ul-completedQ">
-          {completedQList.map((question, index) => {
+          {questionList.map((question, index) => {
             return (
               <li className="li-completedQ" key={index}>
                 {question.text + " " + question.answer + " " + question.status}
@@ -242,14 +254,17 @@ function App() {
           {console.log(questionList)}
           
           <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
-          <input
+          <input id="inputAnswer"
             type="text"
             onChange={handleInputAnswer}
-            onSubmit={handleSubmitAnswer}
+            onSubmit={handleSubmitAnswer & ClearFields}
             autoFocus={autoFocus}
-            value={inputAnswer} //how to set this using objects?
+            // value={questionList[questionList.length-1].userAnswer} //how to set this using objects?
+
+            // value={inputAnswer} //how to set this using objects?
             onKeyPress={keypress}
             placeholder="input answer"
+            // onBlur={this.blurEvent}
           ></input>
           {/* <textarea autoFocus= {autoFocus}
                   onChange= {handleInputAnswer}
