@@ -6,7 +6,7 @@ import Star from './assets/images/star.png';
 
 function App() {
   const [questionList, setQuestionList] = useState([]);
-  // const [inputAnswer, setInputAnswer] = useState("");
+  const [inputAnswer, setInputAnswer] = useState("");
   const [message, setMessage] = useState("");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
@@ -20,11 +20,7 @@ function App() {
   // const [completedQList, setCompletedQList] = useState([]);
   // const [questionType, setQuestionType] = useState("multiply");
   // const [correctAnswer, setCorrectAnswer] = useState([]);
-  function ClearFields() {
 
-    document.getElementById("inputAnswer").value = ""; //not working bc there's no value?
-
-}
   const handleMultiplyClick = () => {
 
     var E = Math.floor(Math.random() * 9 + 2);
@@ -39,7 +35,6 @@ function App() {
       var tempList = []
       if (q.status === "wrong"){
         tempList.push(q)
-        console.log("this is the wronglist" + tempList)
 
       }
       return (
@@ -48,13 +43,14 @@ function App() {
       
       
     })
-    console.log("thi is wrong answer list" + wrongAnswerList)
-    if (wrongAnswerList.length > 100) {
-      var wrong = 
-        wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
+    if (wrongAnswerList.length > 1) {
+      var wrong = wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
+      console.log(wrong)
         if (Math.random()<0.6) {
           console.log("insert wrong question")
-          question = wrong
+          question = wrong.text
+          answer = wrong.correctAnswer
+          console.log("This is a repeated wrong Q" + question)
         }
     } 
 
@@ -97,12 +93,12 @@ function App() {
 
     // tempList.length>0 ? tempList[tempList.length-1].userAnswer = e.target.value : "";
     setQuestionList(tempList);
-    // setInputAnswer(e.target.value);
+    setInputAnswer(e.target.value);
   };
   const handleSubmitAnswer = (e) => {
     var wrongAnswerList = []
     e.preventDefault();
-
+    setInputAnswer("")
     if (questionList.length < 10) {
       // let tempList = completedQList;
 
@@ -125,25 +121,7 @@ function App() {
 
         setMessage(randomMessage);
         setCount(count + 1);
-        setStars({Star})
-        // setStars(<img className= "star" src={Star}></img>)
-        const star = (c) => {
-          var i
-          for (i=0; i<c; i++) {
-            var tempStar = stars;
-            tempStar({Star})
-            stars(tempStar)
-            // {Star}
-            
-              // console.log("This is a star")
-              
-        
-            
-          };
-          // return (starImage)
-      
-        };
-        setStars(star);
+       
 // THIS PART IS WEIRD
         // tempList.push(questionList[questionList.length-1].text + " " + questionList[questionList.length-1].userAnswer + ": Correct!");
         // var completedQList =
@@ -228,22 +206,22 @@ function App() {
     if (c === 1) {
       return (
         <img className= "star" src={Star}></img>
-      );
-    };
+      )
+    }
     if (c === 2) {
       return (
         <div>
         <img className= "star" src={Star}></img>
         <img className= "star" src={Star}></img>
         </div>
-      );
+      )
     }
     if (c > 2) {
       return (
         <div>
-        <img className= "star" src={Star}></img>;
-        <img className= "star" src={Star}></img>;
-        <img className= "star" src={Star}></img>;
+        <img className= "star" src={Star}></img>
+        <img className= "star" src={Star}></img>
+        <img className= "star" src={Star}></img>
         </div>
       )
     }
@@ -307,28 +285,17 @@ function App() {
             <p>Number Correct: {count}</p>
       </div>
         <div >
-
-          {/* {console.log(questionList)} */}
          
           <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
           <input id="inputAnswer"
             type="text"
             onChange={handleInputAnswer}
-            onSubmit={handleSubmitAnswer & ClearFields}
+            onSubmit={handleSubmitAnswer}
             autoFocus={autoFocus}
-            // value={questionList[questionList.length-1].userAnswer} //how to set this using objects?
-
-            // value={inputAnswer} //how to set this using objects?
+            value={inputAnswer}
             onKeyPress={keypress}
             placeholder="input answer"
-            // onBlur={this.blurEvent}
           ></input>
-          {/* <textarea autoFocus= {autoFocus}
-                  onChange= {handleInputAnswer}
-                  onSubmit = {handleSubmitAnswer}
-                  value = {inputAnswer}
-                  onKeyPress={keypress}
-                  placeholder= "input answer"/> */}
           <button
             type="submit"
             onKeyPress={keypress}
@@ -339,20 +306,8 @@ function App() {
             Submit
           </button>
           
-        {/* {const star = (count) => {
-          var i
-          for (i=0; i<count; i++) {
-            
-              console.log("This is a star")
-        
-            
-          };
-      
-        };} */}
         {starImages(count)}
 '
-          {/* {star(count)} */}
-
         </div>
       </div>
 
