@@ -1,6 +1,8 @@
 import "./App.css";
 import React, { useState } from "react";
 import Problems from "./problems";
+import Star from './assets/images/star.png';
+
 
 function App() {
   const [questionList, setQuestionList] = useState([]);
@@ -18,30 +20,34 @@ function App() {
   // const [correctAnswer, setCorrectAnswer] = useState([]);
   function ClearFields() {
 
-    document.getElementById("inputAnswer").value = "";
+    document.getElementById("inputAnswer").value = ""; //not working bc there's no value?
 
 }
   const handleMultiplyClick = () => {
+
     var E = Math.floor(Math.random() * 9 + 2);
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
     var question = E + " × " + G + " = ";
-    console.log(question)
-    console.log(questionList)
+    // console.log(question)
+    // console.log(questionList)
     // let tempList = questionList;
     // tempList.push(question);
-    var wrongAnswerList = questionList.filter((question) => {
+    var wrongAnswerList = questionList.filter((q) => {
       var tempList = []
-      if (question.status === "wrong"){
-        tempList.push(question)
+      if (q.status === "wrong"){
+        tempList.push(q)
+        console.log("this is the wronglist" + tempList)
+
       }
       return (
         tempList
       );
-      console.log(tempList)
+      
+      
     })
-
-    if (wrongAnswerList.length > 0) {
+    console.log("thi is wrong answer list" + wrongAnswerList)
+    if (wrongAnswerList.length > 100) {
       var wrong = 
         wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
         if (Math.random()<0.6) {
@@ -60,7 +66,6 @@ function App() {
 
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
     tempQuestionList.push(questionData);
-    console.log(tempQuestionList)
     // questionList = tempQuestionList;
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
@@ -90,8 +95,6 @@ function App() {
 
     // tempList.length>0 ? tempList[tempList.length-1].userAnswer = e.target.value : "";
     setQuestionList(tempList);
-    console.log(questionList)
-    console.log(questionList[questionList.length-1].userAnswer)
     // setInputAnswer(e.target.value);
   };
   const handleSubmitAnswer = (e) => {
@@ -127,7 +130,7 @@ function App() {
 
         if (questionList[questionList.length-1].type === "multiply") {
           setTimeout(handleMultiplyClick, 1000);
-          console.log("CHecking if type=multiply")
+          console.log("CHecking if answer is correct & type=multiply")
           setTimeout(() => {
             setMessage("");
           }, 1000);
@@ -139,13 +142,16 @@ function App() {
         }
       } else {
         var badMessages = [
-          "Uh oh try again! ",
-          "So close, yet so far away ",
-          "Better luck next time! ",
-          "I wish this was good news...",
-          "We can't all be perfect. ",
-          "Ouch, that sucks try again! ",
+          "Uh oh try again! ", "So close, yet so far away ",
+          "Better luck next time! ", "I wish this was good news...",
+          "We can't all be perfect. ", "Ouch, that sucks try again! ",
         ];
+
+        var tempQuestionList = questionList;
+        tempQuestionList[tempQuestionList.length-1].status = "wrong";
+        setQuestionList(tempQuestionList);
+
+
         var randomMessage =
           badMessages[Math.floor(Math.random() * badMessages.length)];
         var tempList = [];
@@ -165,7 +171,7 @@ function App() {
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
         if (questionList[questionList.length-1].type === "multiply") {
-          console.log("this is the check")
+          console.log("this is the check for not right, and type=multiply")
           setTimeout(handleMultiplyClick, 3000);
           setTimeout(() => {
             setMessage("");
@@ -191,14 +197,23 @@ function App() {
       );
       // console.log(accuracy);
       // setCompletedQList([]);
-    }
+    };
   };
+  const star = (count) => {
+    var i
+    for (i=0; i<count; i++) {
+      return (
+        <img className= "star" src={Star}></img>
+  
+      );
+    };
 
+  };
   const keypress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSubmitAnswer(e);
-    }
+    };
   };
   const questionCompletedDisplay = () => {
     if (questionList.length > 9) {
@@ -218,8 +233,9 @@ function App() {
   };
 
   return (
+    
     <div className="Giant-container">
-      <ul className="ul-nav">
+       <ul className="ul-nav"> {/*.onload= function(){handleMultiplyClick}; */}
         <li>
           <a href="default.asp">Home</a>
         </li>
@@ -231,7 +247,7 @@ function App() {
         </li>
       </ul>
       <div className="container">
-        <button
+        <button 
           onClick={() => {
             handleMultiplyClick();
           }}
@@ -246,13 +262,14 @@ function App() {
           Divide Problem
         </button>
       </div>
-      <div className="container">
-        <div className="problem">
-          <div className="card-top">
+      <div className="problem">
+      <div className="card-top">
             <p>Number Correct: {count}</p>
-          </div>
-          {console.log(questionList)}
-          
+      </div>
+        <div >
+
+          {/* {console.log(questionList)} */}
+         
           <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
           <input id="inputAnswer"
             type="text"
@@ -281,6 +298,8 @@ function App() {
           >
             Submit
           </button>
+          {star(count)}
+
         </div>
       </div>
 
