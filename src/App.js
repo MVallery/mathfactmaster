@@ -2,6 +2,9 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import Problems from "./problems";
 import Star from './assets/images/star.png';
+import Check from './assets/images/check.png';
+import RedX from './assets/images/redx.png';
+
 
 
 function App() {
@@ -74,9 +77,33 @@ function App() {
     setQuestionList(tempList);
     setInputAnswer(e.target.value);
   };
+  // const reset = () => {
+  //   var image = ""
+  // }
+  const answerCheck = () => {
+    var image
+    setTimeout(() => {image=""}, 3000);
+    // not sure why it needs to check length rather than just checking unanswered status??
+    if (questionList.length===0) {
+      return("");
+    }
+    else if (questionList[questionList.length-1].status==="wrong"){
+      image =<img className="star" alt="redx" src={RedX}></img>
+      return(image);
+  } 
+    else if (questionList[questionList.length-1].status==="correct!") {
+      image = <img className="star" alt="check" src={Check}></img>
+
+      return(image);
+    } 
+
+    else {
+      return("");
+    }     
+}
   const handleSubmitAnswer = (e) => {
     // var stopTime = (new Date().getTime() / 1000);
-
+    {answerCheck()}
     var wrongAnswerList = []
     e.preventDefault();
     setInputAnswer("")
@@ -84,6 +111,8 @@ function App() {
       // let tempList = completedQList;
 
       if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
+        
+        
         let messages = [
           "Wow super fast!",
           "Lightning Speed",
@@ -115,7 +144,7 @@ function App() {
         setMessage(randomMessage);
         setCount(count + 1);
        
-// THIS PART IS WEIRD
+        // THIS PART IS WEIRD
         // tempList.push(questionList[questionList.length-1].text + " " + questionList[questionList.length-1].userAnswer + ": Correct!");
         // var completedQList =
         // questionList.map((question, index) => {
@@ -124,7 +153,7 @@ function App() {
         
         // setCompletedQList(tempList);
 
-        if (questionList[questionList.length-1].type === "multiply") {
+        if (questionList[questionList.length-1].type === "Multiplying") {
           setTimeout(handleMultiplyClick, 1000);
           setTimeout(() => {
             setMessage("");
@@ -184,7 +213,7 @@ function App() {
         setMessage(
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
-        if (questionList[questionList.length-1].type === "multiply") {
+        if (questionList[questionList.length-1].type === "Multiplying") {
           setTimeout(handleMultiplyClick, 3000);
           setTimeout(() => {
             setMessage("");
@@ -206,6 +235,11 @@ function App() {
       // setCompletedQList([]);
     };
   };
+
+
+
+
+
   const starImages = (c) => {
     if (c === 1) {
       return (
@@ -288,7 +322,7 @@ function App() {
       </ul>
       <div className="problem-card">
       <div className="card-title">
-      {/* <p>{questionList[questionList.length-1].type} Practice</p> */}
+      {/* <p>{questionList[questionList.length-1].type} Practice</p> Sometimesworks sometimes*/}
       <p>Multiplying Practice</p>
 
       </div>
@@ -311,8 +345,8 @@ function App() {
           ></input>
           
 
-          
-        {starImages(count)}
+        {answerCheck()}
+        {/* {starImages(count)} */}
 
         </div>
       </div>
