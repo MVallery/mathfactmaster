@@ -17,26 +17,33 @@ function App() {
   const [startTime, setStartTime] = useState(0);
   const [goodMessages, setGoodMessages] = useState([]);
   const [accuracy, setAccuracy] = useState("");
+  const [wrongAnswerList, setWrongAnswerList] =useState([]);
 
   useEffect(() => {
     handleMultiplyClick()
   }, []);
-
+  // var wrongAnswerList = questionList.filter(q => q.status.includes("wrong"))
+  // console.log("This is questionlist " +questionList)
+  // console.log("This is wrong answer list" + wrongAnswerList)
+  // console.log("length" +wrongAnswerList.length)
   const handleMultiplyClick = () => {
 
     var E = Math.floor(Math.random() * 9 + 2);
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
     var question = E + "\n × \n" + G + " = ";
-    var wrongAnswerList = questionList.filter((q) => { //should this be it's own state variable so that I can use the status to find accuracy?
-      var tempList = []
-      if (q.status === "wrong"){
-        tempList.push(q)
-      }
-      return (
-        tempList
-      );
-    })
+    // var tempWrongAnswerList = wrongAnswerList;
+    // tempWrongAnswerList =
+    // var wrongAnswerList = questionList.filter((q) => { //should this be it's own state variable so that I can use the status to find accuracy?
+    //   var tempList = []
+    //   if (q.status === "wrong"){
+    //     tempList.push(q)
+    //   }
+    //   return (
+    //     tempList
+    //   );
+    // })
+
     if (wrongAnswerList.length > 1) {
       var wrong = wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
         if (Math.random()<0.6) {
@@ -107,7 +114,7 @@ function App() {
 
     // var stopTime = (new Date().getTime() / 1000);
     {answerCheck()}
-    var wrongAnswerList = []
+    // var wrongAnswerList = []
     e.preventDefault();
     setInputAnswer("")
     if (questionList.length < 100) {
@@ -168,7 +175,9 @@ function App() {
           }, 2000);
         }
       } else {
-        
+        tempWrongAnswerList = wrongAnswerList;
+        tempWrongAnswerList.push(questionList[questionList.length-1])
+        setWrongAnswerList(tempWrongAnswerList)
 
 
         let inputSelect = document.querySelectorAll("input");
@@ -196,7 +205,8 @@ function App() {
         var tempQuestionList = questionList;
         tempQuestionList[tempQuestionList.length-1].status = "wrong";
         setQuestionList(tempQuestionList);
-
+        var tempWrongAnswerList =questionList.filter(q => q.status ===("wrong"))
+        setWrongAnswerList(tempWrongAnswerList)
 
         var randomMessage =
           badMessages[Math.floor(Math.random() * badMessages.length)];
@@ -209,8 +219,8 @@ function App() {
             questionList[questionList.length-1].correctAnswer +
             ")"
         );
-        let tempWrongList = wrongAnswerList;
-        tempWrongList.push(questionList[questionList.length-1].text);
+        // let tempWrongList = wrongAnswerList;
+        // tempWrongList.push(questionList[questionList.length-1].text);
         // setWrongAnswerList(tempWrongList);
 
         setMessage(
@@ -231,9 +241,9 @@ function App() {
       setAccuracy(
         Math.floor((((questionList.length - wrongAnswerList.length) / questionList.length) * 100)).toString() + " %"
       );
+      console.log("This is wrong answer list length "+wrongAnswerList.length)
 
     } else {
-
       // console.log(accuracy);
       // setCompletedQList([]);
     };
