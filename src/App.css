@@ -59,9 +59,9 @@
   font-size: 50px;
   font-style: arial;
   text-shadow: 1px 1px 1px rgb(68, 68, 68);
-  padding: 5px;
+  padding: 10px 0px 0px 0px;
   display:flex;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 300px;
   width: 500px;
   text-align:center;
@@ -81,9 +81,12 @@
   margin: 0;
   padding: 0;
   color: white;
-  font-size: 20px;
+  font-size: 40px;
   justify-content:top;
 
+}
+.card-top p {
+  margin: 0;
 }
 
 .star {

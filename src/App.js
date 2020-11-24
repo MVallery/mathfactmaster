@@ -11,7 +11,8 @@ function App() {
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
   const [stars, setStars] = useState("")
-  // const [time, setTime] = useState(0);
+  const [startTime, setStartTime] = useState(0);
+  const [goodMessages, setGoodMessages] = useState([]);
 
   // const [livesLeft, setLivesLeft] = useState(3);
   const [accuracy, setAccuracy] = useState("");
@@ -45,9 +46,7 @@ function App() {
     })
     if (wrongAnswerList.length > 1) {
       var wrong = wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
-      console.log(wrong)
         if (Math.random()<0.6) {
-          console.log("insert wrong question")
           question = wrong.text
           answer = wrong.correctAnswer
           console.log("This is a repeated wrong Q" + question)
@@ -96,6 +95,8 @@ function App() {
     setInputAnswer(e.target.value);
   };
   const handleSubmitAnswer = (e) => {
+    // var stopTime = (new Date().getTime() / 1000);
+
     var wrongAnswerList = []
     e.preventDefault();
     setInputAnswer("")
@@ -103,16 +104,38 @@ function App() {
       // let tempList = completedQList;
 
       if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
-        
-        
-        
-        
-        var goodMessages = [
-          "Great job",
-          "Awesome!",
-          "Wow keep it up!",
-          "You got it!!",
-        ];
+        let messages = [
+          "Wow super fast!",
+          "Lightning Speed",
+          "Faster than the speed of light!",
+        ]
+        setGoodMessages(messages)
+        console.log("before timeout " +goodMessages)
+        var qListLength = questionList.length
+        const messageFunction = () => {
+          if (qListLength === questionList.length){
+             let newGoodMessages = [
+              "Great job",
+              "Awesome!",
+              "Wow keep it up!",
+              "You got it!!",
+            ]
+            setGoodMessages(newGoodMessages)
+            console.log("after timeout " +goodMessages)
+          }
+
+        }
+        setTimeout(messageFunction, 3000);
+
+
+
+        // if (stopTime-startTime< 3) {
+        //   var goodMessages = [
+        //     "Wow super fast!",
+        //     "Lightning Speed",
+        //     "Faster than the speed of light!",
+        //   ]
+        // }
         var tempList = questionList;
         tempList[tempList.length-1].status = "correct!";
         setQuestionList(tempList)
@@ -133,7 +156,6 @@ function App() {
 
         if (questionList[questionList.length-1].type === "multiply") {
           setTimeout(handleMultiplyClick, 1000);
-          console.log("CHecking if answer is correct & type=multiply")
           setTimeout(() => {
             setMessage("");
           }, 1000);
@@ -174,7 +196,6 @@ function App() {
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
         if (questionList[questionList.length-1].type === "multiply") {
-          console.log("this is the check for not right, and type=multiply")
           setTimeout(handleMultiplyClick, 3000);
           setTimeout(() => {
             setMessage("");
@@ -249,9 +270,9 @@ function App() {
     } else {
     }
   };
+  // {var begTime =new Date().getTime() /1000}
 
   return (
-    
     <div className="Giant-container">
        <ul className="ul-nav"> {/*.onload= function(){handleMultiplyClick}; */}
         <li>
@@ -287,6 +308,8 @@ function App() {
         <div >
          
           <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
+          
+          {/* {setStartTime(begTime)} */}
           <input id="inputAnswer"
             type="text"
             onChange={handleInputAnswer}
@@ -296,18 +319,11 @@ function App() {
             onKeyPress={keypress}
             placeholder="input answer"
           ></input>
-          <button
-            type="submit"
-            onKeyPress={keypress}
-            form
-            className="commentForm"
-            onClick={handleSubmitAnswer}
-          >
-            Submit
-          </button>
+          
+
           
         {starImages(count)}
-'
+
         </div>
       </div>
 
