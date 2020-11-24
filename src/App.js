@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Problems from "./problems";
 import Star from './assets/images/star.png';
 
@@ -17,6 +17,10 @@ function App() {
   // const [livesLeft, setLivesLeft] = useState(3);
   const [accuracy, setAccuracy] = useState("");
 
+  useEffect(() => {
+    handleMultiplyClick()
+  }, []);
+
   // const [wrongAnswerList, setWrongAnswerList] = useState([]);
   // const [completedQList, setCompletedQList] = useState([]);
   // const [questionType, setQuestionType] = useState("multiply");
@@ -27,7 +31,7 @@ function App() {
     var E = Math.floor(Math.random() * 9 + 2);
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
-    var question = E + " × " + G + " = ";
+    var question = E + "\n × \n" + G + " = ";
     // console.log(question)
     // console.log(questionList)
     // let tempList = questionList;
@@ -255,13 +259,13 @@ function App() {
     };
   };
   const questionCompletedDisplay = () => {
-    if (questionList.length > 9) {
+    if (questionList.length > 10) {
       return (
         <ul className="ul-completedQ">
           {questionList.map((question, index) => {
             return (
               <li className="li-completedQ" key={index}>
-                {question.text + " " + question.answer + " " + question.status}
+                {question.text + " " + question.userAnswer + " " + question.status}
               </li>
             );
           })}
@@ -279,6 +283,26 @@ function App() {
           <a href="default.asp">Home</a>
         </li>
         <li>
+        <a
+          onClick={() => {
+            handleMultiplyClick();
+          }}
+        >
+          Multiplying Practice
+        </a>
+        </li>
+
+
+        <li>
+        <a
+          onClick={() => {
+            handleDivideClick();
+          }}
+        >
+          Dividing Practice
+        </a>
+        </li>
+        <li>
           <a href="news.asp">Multiplying Help</a>
         </li>
         <li>
@@ -286,20 +310,8 @@ function App() {
         </li>
       </ul>
       <div className="container">
-        <button 
-          onClick={() => {
-            handleMultiplyClick();
-          }}
-        >
-          Multiply Problem
-        </button>
-        <button
-          onClick={() => {
-            handleDivideClick();
-          }}
-        >
-          Divide Problem
-        </button>
+
+
       </div>
       <div className="problem">
       <div className="card-top">

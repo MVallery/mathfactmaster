@@ -88,7 +88,13 @@
 .card-top p {
   margin: 0;
 }
+input {
+  font-size: 20px;
+  font-weight: bold;
 
+  /* border-top: 0; */
+  
+}
 .star {
   width: 20px;
 }
@@ -99,10 +105,11 @@ input[type="text"] {
 .ul-nav {
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 70px;
   overflow:hidden;
   background-color: rgb(121, 107, 155);
   position: fixed;
+  align-content:center;
   top: 0;
   width: 100%;
 }
