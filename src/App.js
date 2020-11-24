@@ -28,7 +28,7 @@ function App() {
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
     var question = E + "\n × \n" + G + " = ";
-    var wrongAnswerList = questionList.filter((q) => {
+    var wrongAnswerList = questionList.filter((q) => { //should this be it's own state variable so that I can use the status to find accuracy?
       var tempList = []
       if (q.status === "wrong"){
         tempList.push(q)
@@ -81,33 +81,36 @@ function App() {
   //   var image = ""
   // }
   const answerCheck = () => {
-    var image
-    setTimeout(() => {image=""}, 3000);
+    var image = ""
+    var answerDisplay = ""
+    setTimeout(() => {image=""; answerDisplay=""}, 3000);
     // not sure why it needs to check length rather than just checking unanswered status??
     if (questionList.length===0) {
-      return("");
+      return(["", ""]);
     }
     else if (questionList[questionList.length-1].status==="wrong"){
-      image =<img className="star" alt="redx" src={RedX}></img>
-      return(image);
+      image =<img className="star" alt="redx" src={RedX}></img>;
+      answerDisplay = "  (" + questionList[questionList.length-1].correctAnswer + ")";
+      return([image, answerDisplay]);
   } 
     else if (questionList[questionList.length-1].status==="correct!") {
       image = <img className="star" alt="check" src={Check}></img>
-
-      return(image);
+      answerDisplay =""
+      return([image, answerDisplay]);
     } 
 
     else {
-      return("");
+      return([image, answerDisplay]);
     }     
 }
   const handleSubmitAnswer = (e) => {
+
     // var stopTime = (new Date().getTime() / 1000);
     {answerCheck()}
     var wrongAnswerList = []
     e.preventDefault();
     setInputAnswer("")
-    if (questionList.length < 10) {
+    if (questionList.length < 100) {
       // let tempList = completedQList;
 
       if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
@@ -225,12 +228,12 @@ function App() {
           }, 4000);
         }
       }
+      setAccuracy(
+        Math.floor((((questionList.length - wrongAnswerList.length) / questionList.length) * 100)).toString() + " %"
+      );
 
     } else {
-      setAccuracy(
-        (
-          ((10 - wrongAnswerList.length) / 10) * 100).toString() + " %"
-      );
+
       // console.log(accuracy);
       // setCompletedQList([]);
     };
@@ -327,7 +330,7 @@ function App() {
 
       </div>
       <div className="card-top">
-            <p>Progess: {count} / {questionList.length-1} = {accuracy}</p>
+            <p>Progress: {count} / {questionList.length-1} = {accuracy}</p>
       </div>
         <div className="question-answer">
          
@@ -344,18 +347,20 @@ function App() {
             placeholder=""
           ></input>
           
-
-        {answerCheck()}
+        <div className="answerCheck">
+        {answerCheck()[0]}
+        {answerCheck()[1]}
+        </div>
         {/* {starImages(count)} */}
 
         </div>
       </div>
 
       <header className="App-header">
-        {message}
+        {/* {message} */}
         <div>
           {questionCompletedDisplay()}
-          {accuracy}
+          {/* {accuracy} */}
         </div>
       </header>
     </div>
