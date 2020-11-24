@@ -13,18 +13,11 @@ function App() {
   const [stars, setStars] = useState("")
   const [startTime, setStartTime] = useState(0);
   const [goodMessages, setGoodMessages] = useState([]);
-
-  // const [livesLeft, setLivesLeft] = useState(3);
   const [accuracy, setAccuracy] = useState("");
 
   useEffect(() => {
     handleMultiplyClick()
   }, []);
-
-  // const [wrongAnswerList, setWrongAnswerList] = useState([]);
-  // const [completedQList, setCompletedQList] = useState([]);
-  // const [questionType, setQuestionType] = useState("multiply");
-  // const [correctAnswer, setCorrectAnswer] = useState([]);
 
   const handleMultiplyClick = () => {
 
@@ -32,21 +25,14 @@ function App() {
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
     var question = E + "\n × \n" + G + " = ";
-    // console.log(question)
-    // console.log(questionList)
-    // let tempList = questionList;
-    // tempList.push(question);
     var wrongAnswerList = questionList.filter((q) => {
       var tempList = []
       if (q.status === "wrong"){
         tempList.push(q)
-
       }
       return (
         tempList
       );
-      
-      
     })
     if (wrongAnswerList.length > 1) {
       var wrong = wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
@@ -70,11 +56,6 @@ function App() {
     // questionList = tempQuestionList;
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
-
-    // questionList[0].text
-    // var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    // tempQuestionList[0].text = "something";
-    // setQuestionList(tempQuestionList);
   };
 
   const handleDivideClick = (e) => {
@@ -82,11 +63,6 @@ function App() {
     var answer = Math.floor(Math.random() * 9 + 2);
     var T = answer * G;
     var question = T + " ÷ " + G + " = ";
-    // let tempList = questionList;
-    // tempList.push(question);
-    // setQuestionList([question]);
-    // setCorrectAnswer([answer]);
-    // setQuestionType("divide");
     setAutoFocus("autoFocus");
   };
   const handleInputAnswer = (e) => {
@@ -130,16 +106,6 @@ function App() {
 
         }
         setTimeout(messageFunction, 3000);
-
-
-
-        // if (stopTime-startTime< 3) {
-        //   var goodMessages = [
-        //     "Wow super fast!",
-        //     "Lightning Speed",
-        //     "Faster than the speed of light!",
-        //   ]
-        // }
         var tempList = questionList;
         tempList[tempList.length-1].status = "correct!";
         setQuestionList(tempList)
@@ -211,17 +177,11 @@ function App() {
           }, 4000);
         }
       }
-    // Not sure how to change this so that it doesn't clear out the actual userInput but still clears out the input box....***
-    // var tempList = questionList;
-    // tempList[tempList.length-1].userAnswer = ""
-    // setQuestionList(tempList)
 
-      // setInputAnswer("");
-
-      // setTimeout(newQuestion, 5000)
     } else {
       setAccuracy(
-        (((10 - wrongAnswerList.length) / 10) * 100).toString() + " %"
+        (
+          ((10 - wrongAnswerList.length) / 10) * 100).toString() + " %"
       );
       // console.log(accuracy);
       // setCompletedQList([]);
@@ -230,23 +190,23 @@ function App() {
   const starImages = (c) => {
     if (c === 1) {
       return (
-        <img className= "star" src={Star}></img>
+        <img className= "star" alt="star" src={Star}></img>
       )
     }
     if (c === 2) {
       return (
         <div>
-        <img className= "star" src={Star}></img>
-        <img className= "star" src={Star}></img>
+        <img className= "star" alt="star" src={Star}></img>
+        <img className= "star" alt="star" src={Star}></img>
         </div>
       )
     }
     if (c > 2) {
       return (
         <div>
-        <img className= "star" src={Star}></img>
-        <img className= "star" src={Star}></img>
-        <img className= "star" src={Star}></img>
+        <img className= "star" alt="star" src={Star}></img>
+        <img className= "star" alt="star" src={Star}></img>
+        <img className= "star" alt="star" src={Star}></img>
         </div>
       )
     }
@@ -274,11 +234,11 @@ function App() {
     } else {
     }
   };
-  // {var begTime =new Date().getTime() /1000}
-
   return (
     <div className="Giant-container">
-       <ul className="ul-nav"> {/*.onload= function(){handleMultiplyClick}; */}
+      <h1>Math Fact Trainer</h1>
+      <p className="Giant-container-p">Use the math fact trainer to improve your math skills. If you miss any questions it will adjust to show you more of that type until you get it correct.</p>
+       <ul className="ul-nav"> 
         <li>
           <a href="default.asp">Home</a>
         </li>
@@ -309,15 +269,11 @@ function App() {
           <a href="contact.asp">Dividing Help</a>
         </li>
       </ul>
-      <div className="container">
-
-
-      </div>
       <div className="problem">
       <div className="card-top">
-            <p>Number Correct: {count}</p>
+            <p>Progess: {count} / {questionList.length-1} = {accuracy}</p>
       </div>
-        <div >
+        <div className="question-answer">
          
           <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
           
