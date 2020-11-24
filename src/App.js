@@ -239,37 +239,35 @@ function App() {
       <h1>Math Fact Trainer</h1>
       <p className="Giant-container-p">Use the math fact trainer to improve your math skills. If you miss any questions it will adjust to show you more of that type until you get it correct.</p>
        <ul className="ul-nav"> 
+       <div>
+        {/* <li>
+          <a className="nav-bar" href="default.asp">Home</a>
+        </li> */}
         <li>
-          <a href="default.asp">Home</a>
-        </li>
-        <li>
-        <a
+        <button className="nav-bar"
           onClick={() => {
             handleMultiplyClick();
           }}
         >
           Multiplying Practice
-        </a>
+        </button>
         </li>
-
-
-        <li>
-        <a
+        <li >
+        <button className="nav-bar"
           onClick={() => {
-            handleDivideClick();
-          }}
-        >
+            handleDivideClick();}}>
           Dividing Practice
-        </a>
+        </button>
+        </li>
+        {/* <li>
+          <a className="nav-bar" href="news.asp">Multiplying Help</a>
         </li>
         <li>
-          <a href="news.asp">Multiplying Help</a>
-        </li>
-        <li>
-          <a href="contact.asp">Dividing Help</a>
-        </li>
+          <a className="nav-bar" href="contact.asp">Dividing Help</a>
+        </li> */}
+        </div>
       </ul>
-      <div className="problem">
+      <div className="problem-card">
       <div className="card-top">
             <p>Progess: {count} / {questionList.length-1} = {accuracy}</p>
       </div>
@@ -285,7 +283,7 @@ function App() {
             autoFocus={autoFocus}
             value={inputAnswer}
             onKeyPress={keypress}
-            placeholder="input answer"
+            placeholder=""
           ></input>
           
 
