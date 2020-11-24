@@ -100,6 +100,16 @@ button:hover {
   box-shadow: 10px 10px 10px #a19e9e;
   /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
 }
+.card-title {
+  font-family: "Carter One";
+  background: rgb(212, 205, 228);
+  color: rgb(59, 35, 73);
+  text-align:center;
+}
+.card-title p {
+  padding: 0px, 0px, 0px, 0px;
+  margin: 0;
+}
 .card-top {
   background: rgb(121, 107, 155);
   font-family:"Carter One";
@@ -110,6 +120,7 @@ button:hover {
   color: white;
   font-size: 40px;
   justify-content:top;
+  
 
 }
 .card-top p {

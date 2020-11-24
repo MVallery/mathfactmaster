@@ -45,7 +45,7 @@ function App() {
 
     var questionData = {
       text: question,
-      type: 'multiply',
+      type: 'Multiplying',
       correctAnswer: answer,
       userAnswer: "",
       status: 'unanswered'
@@ -136,6 +136,25 @@ function App() {
           }, 2000);
         }
       } else {
+        
+
+
+        let inputSelect = document.querySelectorAll("input");
+        console.log(inputSelect)
+        for(var i = 0; i < inputSelect.length; i++) {
+          inputSelect[i].style.borderColor = 'red';
+        }
+
+        const normalBackground = () => {
+            for (var i = 0; i < inputSelect.length; i++){
+              inputSelect[i].style.borderColor = 'grey';
+
+            }
+
+          }
+        setTimeout (normalBackground, 2000)
+      
+        // inputSelect.style.background = "purple";
         var badMessages = [
           "Uh oh try again! ", "So close, yet so far away ",
           "Better luck next time! ", "I wish this was good news...",
@@ -268,6 +287,11 @@ function App() {
         </div>
       </ul>
       <div className="problem-card">
+      <div className="card-title">
+      {/* <p>{questionList[questionList.length-1].type} Practice</p> */}
+      <p>Multiplying Practice</p>
+
+      </div>
       <div className="card-top">
             <p>Progess: {count} / {questionList.length-1} = {accuracy}</p>
       </div>
