@@ -15,7 +15,6 @@ function App() {
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
   const [accuracy, setAccuracy] = useState("");
-  const [wrongAnswerList, setWrongAnswerList] =useState([]);
 
   const [message, setMessage] = useState("");
   const [stars, setStars] = useState("")
@@ -44,8 +43,8 @@ function App() {
     //   );
     // })
 
-    if (wrongAnswerList.length > 1) {
-      var wrong = wrongAnswerList[Math.floor(Math.random() * wrongAnswerList.length)];
+    if (wrongAnswerList().length > 1) {
+      var wrong = wrongAnswerList()[Math.floor(Math.random() * wrongAnswerList().length)];
         if (Math.random()<0.6) {
           question = wrong.text
           answer = wrong.correctAnswer
@@ -83,7 +82,9 @@ function App() {
     setQuestionList(tempList);
     setInputAnswer(e.target.value);
   };
-
+  const wrongAnswerList = () => {
+    return(questionList.filter(q => q.status ===("wrong")))
+  }
   const answerCheck = () => {
     var image = ""
     var answerDisplay = ""
@@ -108,14 +109,9 @@ function App() {
     }     
 }
   const handleSubmitAnswer = (e) => {
-
-    // var stopTime = (new Date().getTime() / 1000);
-    // {answerCheck()}
-    // var wrongAnswerList = []
     e.preventDefault();
     setInputAnswer("")
     if (questionList.length < 100) {
-      // let tempList = completedQList;
 
       if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
         var tempList = questionList
@@ -153,13 +149,6 @@ function App() {
         // setMessage(randomMessage);
         setCount(count + 1);
        
-        // tempList.push(questionList[questionList.length-1].text + " " + questionList[questionList.length-1].userAnswer + ": Correct!");
-        // var completedQList =
-        // questionList.map((question, index) => {
-        //   return question.text + " " + question.answer + " " + question.status;
-        // })
-        
-        // setCompletedQList(tempList);
 
         if (questionList[questionList.length-1].type === "Multiplying") {
           setTimeout(handleMultiplyClick, 1000);
@@ -179,12 +168,6 @@ function App() {
 
         setQuestionList(tempList);
 
-
-        tempWrongAnswerList = wrongAnswerList;
-        tempWrongAnswerList.push(questionList[questionList.length-1])
-        setWrongAnswerList(tempWrongAnswerList)
-
-
         let inputSelect = document.querySelectorAll("input");
         console.log(inputSelect)
         for(var i = 0; i < inputSelect.length; i++) {
@@ -194,9 +177,7 @@ function App() {
         const normalBackground = () => {
             for (var i = 0; i < inputSelect.length; i++){
               inputSelect[i].style.borderColor = 'grey';
-
             }
-
           }
         setTimeout (normalBackground, 2000)
       
@@ -210,8 +191,6 @@ function App() {
         var tempQuestionList = questionList;
         tempQuestionList[tempQuestionList.length-1].status = "wrong";
         setQuestionList(tempQuestionList);
-        var tempWrongAnswerList =questionList.filter(q => q.status ===("wrong"))
-        setWrongAnswerList(tempWrongAnswerList)
 
         var randomMessage =
           badMessages[Math.floor(Math.random() * badMessages.length)];
@@ -224,9 +203,6 @@ function App() {
             questionList[questionList.length-1].correctAnswer +
             ")"
         );
-        // let tempWrongList = wrongAnswerList;
-        // tempWrongList.push(questionList[questionList.length-1].text);
-        // setWrongAnswerList(tempWrongList);
         
         setMessage(
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
@@ -244,9 +220,8 @@ function App() {
         }
       }
       setAccuracy(
-        Math.floor((((questionList.length - wrongAnswerList.length) / questionList.length) * 100)).toString() + " %"
+        Math.floor((((questionList.length - wrongAnswerList().length) / questionList.length) * 100)).toString() + " %"
       );
-      console.log("This is wrong answer list length "+wrongAnswerList.length)
 
     } else {
       // console.log(accuracy);
@@ -479,17 +454,9 @@ function App() {
               <td>{questionList[9].userAnswer}</td>
               <td><img className="star" alt="redx" src={questionList[9].image}></img></td>
             </tr>
- 
-
-
-
 </table>
-
-
-
-
           ) : null}
-          {/* 
+        
           {/* {accuracy} */}
         </div>
       </header>
