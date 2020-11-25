@@ -79,12 +79,12 @@ button:hover {
 } */
 
 .problem-card {
-  border: 9px solid purple;
+  border: 9px solid #765c79;
   color: rgb(117, 76, 133);
   font-weight:bold;
   font-size: 50px;
   font-style: arial;
-  text-shadow: 1px 1px 1px rgb(68, 68, 68);
+  text-shadow:1px 2px 1px black;  
   padding: 5px 0px 0px 0px;
   display:flex;
   border-radius: 30px;
@@ -97,17 +97,18 @@ button:hover {
   /* animation-name: Problem-animation;
   animation-duration: 4s; */
   background: rgb(255, 255, 255);
-  box-shadow: 10px 10px 10px #a19e9e;
-  /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
+  box-shadow: 20px 20px 20px #888585;  /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
 }
 .card-title {
   font-family: "Carter One";
   text-align:center;
   font-size: 35px;
-  background-color: #500c50;
+  background-color: #3f283f;
   color: white;
   background-clip:content-box;
   padding:0px 0px 5px 0px;
+  border-top-left-radius: 10px;    
+  border-top-right-radius: 10px;
 }
 .card-title p {
   padding: 0px, 0px, 0px, 0px;
@@ -131,15 +132,23 @@ button:hover {
   padding: 0px 0px 0px 0px;
 
 }
+.question {
+  width: 200px;
+  padding: 0px 10px 0px 40px
+}
 .question-answer {
   display:flex;
   font-family: "Carter One";
   flex-grow:2;
-  justify-content:center;
+  justify-content:left;
   align-items:center;
 }
-
-
+table {
+  border: 5px solid black
+}
+.tableData {
+  /* display:none */
+}
 input {
   font-size: 40px;
   font-weight: bold;
@@ -148,6 +157,9 @@ input {
   border-color: grey;
   border-style:solid;
   font-family: "Carter One";
+  color: rgb(117, 76, 133);
+  text-shadow: 1px 2px 1px black;
+
   /* border-top: 0; */
   
 }
@@ -164,7 +176,7 @@ input[type="text"] {
   height:50px;
 }
 .answerCheck {
-  font-size: 30px;
+  font-size: 35px;
   color:green;
 }
 .star {

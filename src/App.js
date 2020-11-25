@@ -4,34 +4,34 @@ import Problems from "./problems";
 import Star from './assets/images/star.png';
 import Check from './assets/images/check.png';
 import RedX from './assets/images/redx.png';
+import Blank from './assets/images/blank.png';
+
 
 
 
 function App() {
   const [questionList, setQuestionList] = useState([]);
   const [inputAnswer, setInputAnswer] = useState("");
-  const [message, setMessage] = useState("");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
+  const [accuracy, setAccuracy] = useState("");
+  const [wrongAnswerList, setWrongAnswerList] =useState([]);
+
+  const [message, setMessage] = useState("");
   const [stars, setStars] = useState("")
   const [startTime, setStartTime] = useState(0);
   const [goodMessages, setGoodMessages] = useState([]);
-  const [accuracy, setAccuracy] = useState("");
-  const [wrongAnswerList, setWrongAnswerList] =useState([]);
 
   useEffect(() => {
     handleMultiplyClick()
   }, []);
-  // var wrongAnswerList = questionList.filter(q => q.status.includes("wrong"))
-  // console.log("This is questionlist " +questionList)
-  // console.log("This is wrong answer list" + wrongAnswerList)
-  // console.log("length" +wrongAnswerList.length)
   const handleMultiplyClick = () => {
 
     var E = Math.floor(Math.random() * 9 + 2);
     var G = Math.floor(Math.random() * 9 + 2);
     var answer = E * G;
-    var question = E + "\n × \n" + G + " = ";
+    var question = E + " × " + G + " = ";
+    // var wrongAnswerList = questionList.filter(q => q.status.includes("wrong"))
     // var tempWrongAnswerList = wrongAnswerList;
     // tempWrongAnswerList =
     // var wrongAnswerList = questionList.filter((q) => { //should this be it's own state variable so that I can use the status to find accuracy?
@@ -58,12 +58,12 @@ function App() {
       type: 'Multiplying',
       correctAnswer: answer,
       userAnswer: "",
-      status: 'unanswered'
+      status: 'unanswered',
+      image: Blank,
     };
 
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
     tempQuestionList.push(questionData);
-    // questionList = tempQuestionList;
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
   };
@@ -75,23 +75,20 @@ function App() {
     var question = T + " ÷ " + G + " = ";
     setAutoFocus("autoFocus");
   };
+
   const handleInputAnswer = (e) => {
     e.preventDefault();
     var tempList = questionList;
     tempList[tempList.length-1].userAnswer = e.target.value;
-
-    // tempList.length>0 ? tempList[tempList.length-1].userAnswer = e.target.value : "";
     setQuestionList(tempList);
     setInputAnswer(e.target.value);
   };
-  // const reset = () => {
-  //   var image = ""
-  // }
+
   const answerCheck = () => {
     var image = ""
     var answerDisplay = ""
     setTimeout(() => {image=""; answerDisplay=""}, 3000);
-    // not sure why it needs to check length rather than just checking unanswered status??
+    // not sure why it needs to check length rather than just checking unanswered status?? gives cannot read status of undefined
     if (questionList.length===0) {
       return(["", ""]);
     }
@@ -113,7 +110,7 @@ function App() {
   const handleSubmitAnswer = (e) => {
 
     // var stopTime = (new Date().getTime() / 1000);
-    {answerCheck()}
+    // {answerCheck()}
     // var wrongAnswerList = []
     e.preventDefault();
     setInputAnswer("")
@@ -121,40 +118,41 @@ function App() {
       // let tempList = completedQList;
 
       if (String(questionList[questionList.length-1].correctAnswer) === String(questionList[questionList.length-1].userAnswer)) {
-        
-        
-        let messages = [
-          "Wow super fast!",
-          "Lightning Speed",
-          "Faster than the speed of light!",
-        ]
-        setGoodMessages(messages)
-        console.log("before timeout " +goodMessages)
-        var qListLength = questionList.length
-        const messageFunction = () => {
-          if (qListLength === questionList.length){
-             let newGoodMessages = [
-              "Great job",
-              "Awesome!",
-              "Wow keep it up!",
-              "You got it!!",
-            ]
-            setGoodMessages(newGoodMessages)
-            console.log("after timeout " +goodMessages)
-          }
+        var tempList = questionList
+        tempList[tempList.length-1].image = Check;
+        // <img className= "star" alt="correct" src={Check}></img>;
+        setQuestionList(tempList)
 
-        }
-        setTimeout(messageFunction, 3000);
+        // let messages = [
+        //   "Wow super fast!",
+        //   "Lightning Speed",
+        //   "Faster than the speed of light!",
+        // ]
+        // setGoodMessages(messages)
+        // var qListLength = questionList.length
+        // const messageFunction = () => {
+        //   if (qListLength === questionList.length){
+        //      let newGoodMessages = [
+        //       "Great job",
+        //       "Awesome!",
+        //       "Wow keep it up!",
+        //       "You got it!!",
+        //     ]
+        //     setGoodMessages(newGoodMessages)
+        //     console.log("after timeout " +goodMessages)
+        //   }
+
+        // }
+        // setTimeout(messageFunction, 3000);
         var tempList = questionList;
         tempList[tempList.length-1].status = "correct!";
         setQuestionList(tempList)
-        var randomMessage =
-          goodMessages[Math.floor(Math.random() * goodMessages.length)];
+        // var randomMessage =
+        //   goodMessages[Math.floor(Math.random() * goodMessages.length)];
 
-        setMessage(randomMessage);
+        // setMessage(randomMessage);
         setCount(count + 1);
        
-        // THIS PART IS WEIRD
         // tempList.push(questionList[questionList.length-1].text + " " + questionList[questionList.length-1].userAnswer + ": Correct!");
         // var completedQList =
         // questionList.map((question, index) => {
@@ -165,16 +163,23 @@ function App() {
 
         if (questionList[questionList.length-1].type === "Multiplying") {
           setTimeout(handleMultiplyClick, 1000);
-          setTimeout(() => {
-            setMessage("");
-          }, 1000);
+          // setTimeout(() => {
+          //   setMessage("");
+          // }, 1000);
         } else {
           setTimeout(handleDivideClick, 2000);
-          setTimeout(() => {
-            setMessage("");
-          }, 2000);
+          // setTimeout(() => {
+          //   setMessage("");
+          // }, 2000);
         }
       } else {
+        var tempList = questionList
+        tempList[tempList.length-1].image = RedX
+          // img className= "star" alt="wrong" src={RedX}></img>;
+
+        setQuestionList(tempList);
+
+
         tempWrongAnswerList = wrongAnswerList;
         tempWrongAnswerList.push(questionList[questionList.length-1])
         setWrongAnswerList(tempWrongAnswerList)
@@ -222,7 +227,7 @@ function App() {
         // let tempWrongList = wrongAnswerList;
         // tempWrongList.push(questionList[questionList.length-1].text);
         // setWrongAnswerList(tempWrongList);
-
+        
         setMessage(
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
@@ -284,22 +289,60 @@ function App() {
       handleSubmitAnswer(e);
     };
   };
-  const questionCompletedDisplay = () => {
-    if (questionList.length > 10) {
-      return (
-        <ul className="ul-completedQ">
-          {questionList.map((question, index) => {
-            return (
-              <li className="li-completedQ" key={index}>
-                {question.text + " " + question.userAnswer + " " + question.status}
-              </li>
-            );
-          })}
-        </ul>
-      );
-    } else {
-    }
-  };
+  // useEffect(() => {
+  //   questionCompletedDisplay()
+  // }, [questionList]);
+
+
+  // const questionCompletedDisplay = () => {
+  //   if (questionList.length > 9) {
+  //     console.log("questionlist>9trigger")
+  //     // var tempList= []
+  //     // setQuestionList(tempList)
+  //     var tableArray = []
+  //     var i;
+  //     for (i=0; i<9; i++){
+  //       console.log("This is for loop trigger"+ i)
+        
+      
+  //       <div>
+  //       <tr>
+  //       <td>questionList[i].status</td>
+  //       <td> questionList[i].text</td>
+  //       <td> questionList[i].userAnswer</td>
+  //       <td> <img src= {questionList[i].image}></img></td>
+  //     </tr>
+  //     </div>
+        
+  //       )
+
+  //   }
+  //   else {
+  // };
+  //     //   "<tr>" +
+      //   "<td>" + questionList[i].status+ "</td>" +
+      //   "<td>" + + questionList[questionList.length-1].correctAnswer + "</td>" +
+      //   "<td>" + questionList[i].userAnswer + "</td>" +
+      //   "<td>" + questionList[i].text + "</td>" +
+      // "</tr>"
+/* <tr>
+<td>{questionList[i].status}+ </td>
+<td>{questionList[i].text + questionList[questionList.length-1].correctAnswer}</td>
+<td>{questionList[i].userAnswer}</td>
+<td>{questionList[i].text}</td>
+</tr> */
+
+        // <ul className="ul-completedQ">
+        //   {questionList.map((question, index) => {
+        //     return (
+        //       <li className="li-completedQ" key={index}>
+        //         {question.text + " " + question.userAnswer + " " + question.status}
+        //       </li>
+        //     );
+        //   })}
+        // </ul>
+      
+
   return (
     <div className="Giant-container">
       <h1>Math Fact Trainer</h1>
@@ -343,9 +386,9 @@ function App() {
             <p>Progress: {count} / {questionList.length-1} = {accuracy}</p>
       </div>
         <div className="question-answer">
-         
+          <div className="question">
           <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].text : ""} />
-          
+          </div>
           {/* {setStartTime(begTime)} */}
           <input id="inputAnswer"
             type="text"
@@ -360,6 +403,9 @@ function App() {
         <div className="answerCheck">
         {answerCheck()[0]}
         {answerCheck()[1]}
+        {/* <Problems questionList={ questionList.length>0 ? questionList[questionList.length-1].image : ""} /> */}
+
+        {/* {questionList[questionList.length-1].text} */}
         </div>
         {/* {starImages(count)} */}
 
@@ -368,8 +414,82 @@ function App() {
 
       <header className="App-header">
         {/* {message} */}
-        <div>
-          {questionCompletedDisplay()}
+        <div className="tableData">
+          {/* <table>{questionCompletedDisplay()}</table> */}
+         
+          {questionList.filter(r => r.userAnswer).length > 10 ? (
+            <table> 
+            <tr>
+              <td>{questionList[0].status} </td>
+              <td>{questionList[0].text + questionList[0].correctAnswer}</td>
+              <td>{questionList[0].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[0].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[1].status} </td>
+              <td>{questionList[1].text + questionList[1].correctAnswer}</td>
+              <td>{questionList[1].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[1].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[2].status} </td>
+              <td>{questionList[2].text + questionList[2].correctAnswer}</td>
+              <td>{questionList[2].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[2].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[3].status} </td>
+              <td>{questionList[3].text + questionList[3].correctAnswer}</td>
+              <td>{questionList[3].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[3].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[4].status} </td>
+              <td>{questionList[4].text + questionList[4].correctAnswer}</td>
+              <td>{questionList[4].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[4].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[5].status} </td>
+              <td>{questionList[5].text + questionList[5].correctAnswer}</td>
+              <td>{questionList[5].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[5].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[6].status} </td>
+              <td>{questionList[6].text + questionList[6].correctAnswer}</td>
+              <td>{questionList[6].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[6].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[7].status} </td>
+              <td>{questionList[7].text + questionList[7].correctAnswer}</td>
+              <td>{questionList[7].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[7].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[8].status} </td>
+              <td>{questionList[8].text + questionList[8].correctAnswer}</td>
+              <td>{questionList[8].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[8].image}></img></td>
+            </tr>
+            <tr>
+              <td>{questionList[9].status} </td>
+              <td>{questionList[9].text + questionList[9].correctAnswer}</td>
+              <td>{questionList[9].userAnswer}</td>
+              <td><img className="star" alt="redx" src={questionList[9].image}></img></td>
+            </tr>
+ 
+
+
+
+</table>
+
+
+
+
+          ) : null}
+          {/* 
           {/* {accuracy} */}
         </div>
       </header>
