@@ -73,8 +73,91 @@ function App() {
     var T = answer * G;
     var question = T + " ÷ " + G + " = ";
     setAutoFocus("autoFocus");
+
+    if (wrongAnswerList().length > 1) {
+      var wrong = wrongAnswerList()[Math.floor(Math.random() * wrongAnswerList().length)];
+        if (Math.random()<0.6) {
+          question = wrong.text
+          answer = wrong.correctAnswer
+          console.log("This is a repeated wrong Q" + question)
+        }
+    } 
+
+    var questionData = {
+      text: question,
+      type: 'Dividing',
+      correctAnswer: answer,
+      userAnswer: "",
+      status: 'unanswered',
+      image: Blank,
+    };
+
+    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+    tempQuestionList.push(questionData);
+    setQuestionList(tempQuestionList);
+    setAutoFocus("autoFocus");
   };
 
+  const handleAddClick = (e) => {
+    var A1 = Math.floor(Math.random() * 9 + 2);
+    var A2 = Math.floor(Math.random() * 9 + 2);
+    var answer = A1+A2;
+    var question = A1 + " + " + A2 + " = ";
+    setAutoFocus("autoFocus");
+
+    if (wrongAnswerList().length > 1) {
+      var wrong = wrongAnswerList()[Math.floor(Math.random() * wrongAnswerList().length)];
+        if (Math.random()<0.6) {
+          question = wrong.text
+          answer = wrong.correctAnswer
+          console.log("This is a repeated wrong Q" + question)
+        }
+    } 
+
+    var questionData = {
+      text: question,
+      type: 'Adding',
+      correctAnswer: answer,
+      userAnswer: "",
+      status: 'unanswered',
+      image: Blank,
+    };
+
+    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+    tempQuestionList.push(questionData);
+    setQuestionList(tempQuestionList);
+    setAutoFocus("autoFocus");
+  };
+  const handleSubClick = (e) => {
+    var A1 = Math.floor(Math.random() * 9 + 2);
+    var answer = Math.floor(Math.random() * 9 + 2);
+    var T = A1+answer;
+    var question = T + " - " + A1 + " = ";
+    setAutoFocus("autoFocus");
+
+    if (wrongAnswerList().length > 1) {
+      var wrong = wrongAnswerList()[Math.floor(Math.random() * wrongAnswerList().length)];
+        if (Math.random()<0.6) {
+          question = wrong.text
+          answer = wrong.correctAnswer
+          console.log("This is a repeated wrong Q" + question)
+        }
+    } 
+
+    var questionData = {
+      text: question,
+      type: 'Subtracting',
+      correctAnswer: answer,
+      userAnswer: "",
+      status: 'unanswered',
+      image: Blank,
+    };
+
+    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+    tempQuestionList.push(questionData);
+    setQuestionList(tempQuestionList);
+    setAutoFocus("autoFocus");
+  };
   const handleInputAnswer = (e) => {
     e.preventDefault();
     var tempList = questionList;
@@ -155,11 +238,21 @@ function App() {
           // setTimeout(() => {
           //   setMessage("");
           // }, 1000);
-        } else {
-          setTimeout(handleDivideClick, 2000);
+        }
+        else if (questionList[questionList.length-1].type === "Subtracting"){
+          setTimeout(handleSubClick, 2000);
           // setTimeout(() => {
           //   setMessage("");
           // }, 2000);
+        }
+        else if (questionList[questionList.length-1].type === "Adding"){
+          setTimeout(handleAddClick, 2000);
+          // setTimeout(() => {
+          //   setMessage("");
+          // }, 2000);
+        }
+        else {
+          setTimeout(handleDivideClick, 2000);
         }
       } else {
         var tempList = questionList
@@ -207,16 +300,26 @@ function App() {
         setMessage(
           "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
         );
+
         if (questionList[questionList.length-1].type === "Multiplying") {
-          setTimeout(handleMultiplyClick, 3000);
-          setTimeout(() => {
-            setMessage("");
-          }, 3000);
-        } else {
-          setTimeout(handleDivideClick, 4000);
-          setTimeout(() => {
-            setMessage("");
-          }, 4000);
+          setTimeout(handleMultiplyClick, 2000);
+          // setTimeout(() => {
+          //   setMessage("");
+          // }, 1000);
+        }
+        else if (questionList[questionList.length-1].type === "Subtracting"){
+          setTimeout(handleSubClick, 2000);
+          // setTimeout(() => {
+          //   setMessage("");
+          // }, 2000);
+        }
+        else if (questionList[questionList.length-1].type === "Adding"){
+          setTimeout(handleAddClick, 2000);
+          // setTimeout(() => {
+          //   setMessage("");
+          // }, 2000);
+        }else {
+          setTimeout(handleDivideClick, 2000)
         }
       }
       setAccuracy(
@@ -343,6 +446,20 @@ function App() {
           Dividing Practice
         </button>
         </li>
+        <li >
+        <button className="nav-bar"
+          onClick={() => {
+            handleAddClick();}}>
+          Adding Practice
+        </button>
+        </li>
+        <li >
+        <button className="nav-bar"
+          onClick={() => {
+            handleSubClick();}}>
+          Subtracting Practice
+        </button>
+        </li>
         {/* <li>
           <a className="nav-bar" href="news.asp">Multiplying Help</a>
         </li>
@@ -353,7 +470,7 @@ function App() {
       </ul>
       <div className="problem-card">
       <div className="card-title">
-      {/* <p>{questionList[questionList.length-1].type} Practice</p> Sometimesworks sometimes*/}
+      {/* <p>{questionList[questionList.length-1].type} Practice</p> */}
       <p>Multiplying Practice</p>
 
       </div>
