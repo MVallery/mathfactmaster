@@ -111,6 +111,8 @@ function App() {
 
       tempQuestionList = [questionData];
       setCount(0);
+      setAccuracy(0);
+
     } else {
       tempQuestionList.push(questionData);
 
@@ -149,6 +151,7 @@ function App() {
 
       tempQuestionList = [questionData];
       setCount(0);
+      setAccuracy(0);
     } else {
       tempQuestionList.push(questionData);
 
@@ -187,6 +190,7 @@ function App() {
 
       tempQuestionList = [questionData];
       setCount(0);
+      setAccuracy(0);
     } else {
       tempQuestionList.push(questionData);
 
@@ -225,6 +229,7 @@ function App() {
 
       tempQuestionList = [questionData];
       setCount(0);
+      setAccuracy(0);
     } else {
       tempQuestionList.push(questionData);
 
@@ -544,12 +549,16 @@ function App() {
       </ul>
       <div className="problem-card">
       <div className="card-title">
-      {/* <p>{questionList[questionList.length-1].type} Practice</p> */}
-      <p>Multiplying Practice</p>
+      <p>{questionList.length>0 ?
+        questionList[questionList.length-1].type : 'Multiplying '
+        } Practice</p>
+      {/* <p>Multiplying Practice</p> */}
 
       </div>
       <div className="card-top">
-            <p>Progress: {count} / {questionList.length-1} = {accuracy}</p>
+            {/* <p>Progress: {count} / {questionList.length-1} = {accuracy}</p> */}
+            <p>Progress: {questionList.filter(r => r.status==="correct!").length} / {questionList.filter(r=>r.image!== Blank).length}  = {accuracy}</p>
+
       </div>
         <div className="question-answer">
           <div className="question">
@@ -583,7 +592,7 @@ function App() {
         <div className="tableData">
           {/* <table>{questionCompletedDisplay()}</table> */}
          
-          {questionList.filter(r => r.userAnswer).length > 10 ? (
+          {questionList.filter(r => r.status !== '').length > 10 ? (
             <table> 
             <tr>
               <td>{questionList[0].status} </td>
