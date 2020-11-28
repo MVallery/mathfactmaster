@@ -60,8 +60,8 @@ function App() {
 
  
     // var newQuestionList = []
-    console.log('this is handleMainClicks questionlist: '+ questionList)
-    console.log(questionList.length)
+    // console.log('this is handleMainClicks questionlist: '+ questionList)
+    // console.log(questionList.length)
 
 
 
@@ -259,7 +259,7 @@ function App() {
       image =<img className="star" alt="redx" src={RedX}></img>;
       answerDisplay = "  (" + questionList[questionList.length-1].correctAnswer + ")";
       return([image, answerDisplay]);
-  } 
+    } 
     else if (questionList[questionList.length-1].status==="correct!") {
       image = <img className="star" alt="check" src={Check}></img>
       answerDisplay =""
@@ -269,7 +269,7 @@ function App() {
     else {
       return([image, answerDisplay]);
     }     
-}
+  }
   const handleSubmitAnswer = (e) => {
     e.preventDefault();
     setInputAnswer("")
@@ -313,7 +313,7 @@ function App() {
        
 
         if (questionList[questionList.length-1].type === "Multiplying") {
-          setTimeout(handleMultiplyClick, 1000);
+          setTimeout(handleMultiplyClick, 500);
           // setTimeout(() => {
           //   setMessage("");
           // }, 1000);
@@ -482,12 +482,12 @@ function App() {
       //   "<td>" + questionList[i].userAnswer + "</td>" +
       //   "<td>" + questionList[i].text + "</td>" +
       // "</tr>"
-/* <tr>
-<td>{questionList[i].status}+ </td>
-<td>{questionList[i].text + questionList[questionList.length-1].correctAnswer}</td>
-<td>{questionList[i].userAnswer}</td>
-<td>{questionList[i].text}</td>
-</tr> */
+          /* <tr>
+          <td>{questionList[i].status}+ </td>
+          <td>{questionList[i].text + questionList[questionList.length-1].correctAnswer}</td>
+          <td>{questionList[i].userAnswer}</td>
+          <td>{questionList[i].text}</td>
+          </tr> */
 
         // <ul className="ul-completedQ">
         //   {questionList.map((question, index) => {
@@ -547,6 +547,7 @@ function App() {
         </li> */}
         </div>
       </ul>
+      {questionList.filter(r => r.status !== '').length > 10 ? null:(
       <div className="problem-card">
       <div className="card-title">
       <p>{questionList.length>0 ?
@@ -585,75 +586,81 @@ function App() {
         {/* {starImages(count)} */}
 
         </div>
-      </div>
+      </div>)}
 
       <header className="App-header">
         {/* {message} */}
+        {/* <button className="try-again" onClick={questionList.length>0?handleMainClick(questionList[0].type):handleMultiplyClick}>Try again!</button> */}
         <div className="tableData">
           {/* <table>{questionCompletedDisplay()}</table> */}
          
           {questionList.filter(r => r.status !== '').length > 10 ? (
             <table> 
+            <tbody>
             <tr>
-              <td>{questionList[0].status} </td>
+          <th colspan= "2">{questionList[0].type} Practice Results: {accuracy}</th>
+            </tr>
+            <tr>
+              {/* <td>{questionList[0].status} </td> */}
               <td>{questionList[0].text + questionList[0].correctAnswer}</td>
-              <td>{questionList[0].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[0].image}></img></td>
+              {/* <td>{questionList[0].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[0].image}></img>{questionList[0].status==="wrong" ?(questionList[0].userAnswer):null}</td>
             </tr>
             <tr>
-              <td>{questionList[1].status} </td>
+              {/* <td>{questionList[1].status} </td> */}
               <td>{questionList[1].text + questionList[1].correctAnswer}</td>
-              <td>{questionList[1].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[1].image}></img></td>
+              {/* <td>{questionList[1].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[1].image}></img>{questionList[1].status==="wrong" ?questionList[1].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[2].status} </td>
+              {/* <td>{questionList[2].status} </td> */}
               <td>{questionList[2].text + questionList[2].correctAnswer}</td>
-              <td>{questionList[2].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[2].image}></img></td>
+              {/* <td>{questionList[2].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[2].image}></img>{questionList[2].status==="wrong" ?questionList[2].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[3].status} </td>
+              {/* <td>{questionList[3].status} </td> */}
               <td>{questionList[3].text + questionList[3].correctAnswer}</td>
-              <td>{questionList[3].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[3].image}></img></td>
+              {/* <td>{questionList[3].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[3].image}></img>{questionList[3].status==="wrong" ?questionList[3].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[4].status} </td>
+              {/* <td>{questionList[4].status} </td> */}
               <td>{questionList[4].text + questionList[4].correctAnswer}</td>
-              <td>{questionList[4].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[4].image}></img></td>
+              {/* <td>{questionList[4].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[4].image}></img>{questionList[4].status==="wrong" ?questionList[4].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[5].status} </td>
+              {/* <td>{questionList[5].status} </td> */}
               <td>{questionList[5].text + questionList[5].correctAnswer}</td>
-              <td>{questionList[5].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[5].image}></img></td>
+              {/* <td>{questionList[5].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[5].image}></img>{questionList[5].status==="wrong" ?questionList[5].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[6].status} </td>
+              {/* <td>{questionList[6].status} </td> */}
               <td>{questionList[6].text + questionList[6].correctAnswer}</td>
-              <td>{questionList[6].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[6].image}></img></td>
+              {/* <td>{questionList[6].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[6].image}></img>{questionList[6].status==="wrong" ?questionList[6].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[7].status} </td>
+              {/* <td>{questionList[7].status} </td> */}
               <td>{questionList[7].text + questionList[7].correctAnswer}</td>
-              <td>{questionList[7].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[7].image}></img></td>
+              {/* <td>{questionList[7].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[7].image}></img>{questionList[7].status==="wrong" ?questionList[7].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[8].status} </td>
+              {/* <td>{questionList[8].status} </td> */}
               <td>{questionList[8].text + questionList[8].correctAnswer}</td>
-              <td>{questionList[8].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[8].image}></img></td>
+              {/* <td>{questionList[8].userAnswer}</td> */}
+              <td><img className="star" alt="redx" src={questionList[8].image}></img>{questionList[8].status==="wrong" ?questionList[8].userAnswer:null}</td>
             </tr>
             <tr>
-              <td>{questionList[9].status} </td>
+              {/* <td>{questionList[9].status} </td> */}
               <td>{questionList[9].text + questionList[9].correctAnswer}</td>
-              <td>{questionList[9].userAnswer}</td>
-              <td><img className="star" alt="redx" src={questionList[9].image}></img></td>
+              {/* <td>{questionList[9].userAnswer}</td> */}
+          <td><img className="star" alt="redx" src={questionList[9].image}></img>{questionList[9].status==="wrong" ?questionList[9].userAnswer:null}</td>
             </tr>
+            </tbody>
 </table>
           ) : null}
         

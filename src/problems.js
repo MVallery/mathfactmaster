@@ -30,7 +30,6 @@ class Problems extends React.Component {
   }
   
   render () {
-    console.log(this.props);
       return (
         <div>
           {this.props.questionList.length > 0 ? this.props.questionList : null}

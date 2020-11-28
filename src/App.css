@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ranchers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap');
 
 .Giant-container {
   display:flex;
@@ -100,7 +103,7 @@ button:hover {
   box-shadow: 20px 20px 20px #888585;  /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
 }
 .card-title {
-  font-family: "Carter One";
+  font-family: "Cherry Cream Soda";
   text-align:center;
   font-size: 35px;
   background-color: #3f283f;
@@ -115,14 +118,14 @@ button:hover {
   margin: 0;
 }
 .card-top {
-  font-family:"Carter One";
+  font-family:"Yanone Kaffeesatz";
   position:relative;
   top:0;
   margin: 0;
   padding: 0;
   color: white;
   justify-content:top;
-  font-size: 28px;
+  font-size: 35px;
   background-color: #734173;
   
 
@@ -134,20 +137,38 @@ button:hover {
 }
 .question {
   width: 200px;
-  padding: 0px 10px 0px 40px
+  padding: 0px 10px 0px 40px;
 }
 .question-answer {
   display:flex;
-  font-family: "Carter One";
+  font-family: "Ranchers";
   flex-grow:2;
+  /* flex-wrap:nowrap; */
   justify-content:left;
   align-items:center;
 }
 table {
-  border: 5px solid black
+  border: 5px solid black;
+  font-size:25px;
 }
+th {
+  background-color:#3f283f;
+  color: white;
+}
+tr:nth-child(even) {background-color: #cfbccf;}
+
 .tableData {
-  /* display:none */
+  /* 
+  display:none */
+}
+.try-again {
+  border:none;
+  background-color: rgb(94, 28, 94)
+
+}
+.try-again:hover {
+  border-bottom:6px solid white;
+  background-color:rgb(129, 55, 129)
 }
 input {
   font-size: 40px;
@@ -156,7 +177,7 @@ input {
   text-align:center;
   border-color: grey;
   border-style:solid;
-  font-family: "Carter One";
+  font-family: "Ranchers";
   color: rgb(117, 76, 133);
   text-shadow: 1px 2px 1px black;
 
@@ -198,5 +219,5 @@ input[type="text"] {
   font-size: 15px;
 }
 h1 {
-  font-family: "Carter One";
+  font-family: "Cherry Cream Soda";
 }
