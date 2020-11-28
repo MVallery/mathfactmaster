@@ -16,14 +16,59 @@ function App() {
   const [count, setCount] = useState(0);
   const [accuracy, setAccuracy] = useState("");
 
-  const [message, setMessage] = useState("");
-  const [stars, setStars] = useState("")
-  const [startTime, setStartTime] = useState(0);
-  const [goodMessages, setGoodMessages] = useState([]);
+  // const [message, setMessage] = useState("");
+  // const [stars, setStars] = useState("")
+  // const [startTime, setStartTime] = useState(0);
+  // const [goodMessages, setGoodMessages] = useState([]);
 
   useEffect(() => {
     handleMultiplyClick()
   }, []);
+  // useEffect(() => {
+  //   if (questionList.length>10){
+  //     setQuestionList([])
+  //   } else {
+
+  //   }
+  // },);
+  const handleClearQuestionList = () => {
+    setQuestionList([])
+  }
+  const handleMainClick =(operation) => {
+    setQuestionList([])
+
+
+    if (operation === "Multiplying") {
+
+      // setQuestionList([])
+      handleMultiplyClick()
+    }
+    else if (operation === "Dividing") {
+      // setQuestionList([])
+
+      handleDivideClick()
+    }
+    else if (operation === "Adding") {
+      // setQuestionList([])
+
+      handleAddClick()
+    }
+    else {
+      // setQuestionList([])
+      handleSubClick()
+    }
+
+ 
+    // var newQuestionList = []
+    console.log('this is handleMainClicks questionlist: '+ questionList)
+    console.log(questionList.length)
+
+
+
+
+
+
+  }
   const handleMultiplyClick = () => {
 
     var E = Math.floor(Math.random() * 9 + 2);
@@ -60,9 +105,16 @@ function App() {
       status: 'unanswered',
       image: Blank,
     };
-
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    tempQuestionList.push(questionData);
+
+    if (questionList.length>0 && (questionList.length>10 || questionList[questionList.length-1].type !== 'Multiplying')){
+
+      tempQuestionList = [questionData];
+      setCount(0);
+    } else {
+      tempQuestionList.push(questionData);
+
+    }
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
   };
@@ -93,8 +145,15 @@ function App() {
     };
 
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    tempQuestionList.push(questionData);
-    setQuestionList(tempQuestionList);
+    if (questionList.length>0 && (questionList.length>10 || questionList[questionList.length-1].type !== 'Dividing')){
+
+      tempQuestionList = [questionData];
+      setCount(0);
+    } else {
+      tempQuestionList.push(questionData);
+
+    }
+        setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
   };
 
@@ -124,7 +183,15 @@ function App() {
     };
 
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    tempQuestionList.push(questionData);
+    if (questionList.length>0 && (questionList.length>10 || questionList[questionList.length-1].type !== 'Adding')){
+
+      tempQuestionList = [questionData];
+      setCount(0);
+    } else {
+      tempQuestionList.push(questionData);
+
+    }
+
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
   };
@@ -154,7 +221,14 @@ function App() {
     };
 
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    tempQuestionList.push(questionData);
+    if (questionList.length>0 && (questionList.length>10 || questionList[questionList.length-1].type !== 'Subtracting')){
+
+      tempQuestionList = [questionData];
+      setCount(0);
+    } else {
+      tempQuestionList.push(questionData);
+
+    }
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
   };
@@ -262,7 +336,7 @@ function App() {
         setQuestionList(tempList);
 
         let inputSelect = document.querySelectorAll("input");
-        console.log(inputSelect)
+        // console.log(inputSelect)
         for(var i = 0; i < inputSelect.length; i++) {
           inputSelect[i].style.borderColor = 'red';
         }
@@ -297,9 +371,9 @@ function App() {
             ")"
         );
         
-        setMessage(
-          "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
-        );
+        // setMessage(
+        //   "Your answer: " + questionList[questionList.length-1].userAnswer + " " + randomMessage + questionList[questionList.length-1].text + " " + questionList[questionList.length-1].correctAnswer
+        // );
 
         if (questionList[questionList.length-1].type === "Multiplying") {
           setTimeout(handleMultiplyClick, 2000);
@@ -433,7 +507,7 @@ function App() {
         <li>
         <button className="nav-bar"
           onClick={() => {
-            handleMultiplyClick();
+            handleMainClick("Multiplying");
           }}
         >
           Multiplying Practice
@@ -442,21 +516,21 @@ function App() {
         <li >
         <button className="nav-bar"
           onClick={() => {
-            handleDivideClick();}}>
+            handleMainClick("Dividing");}}>
           Dividing Practice
         </button>
         </li>
         <li >
         <button className="nav-bar"
           onClick={() => {
-            handleAddClick();}}>
+            handleMainClick("Adding");}}>
           Adding Practice
         </button>
         </li>
         <li >
         <button className="nav-bar"
           onClick={() => {
-            handleSubClick();}}>
+            handleMainClick("Subtracting");}}>
           Subtracting Practice
         </button>
         </li>
