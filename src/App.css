@@ -221,3 +221,22 @@ input[type="text"] {
 h1 {
   font-family: "Cherry Cream Soda";
 }
+
+.ul-questiontype {
+  display:flex;
+  list-style-type:none;
+  border:none;
+}
+.li-questiontype {
+  padding: 0px 10px 0px 10px;
+  margin: 0px 10px;
+  background-color: purple;
+  color: white;
+  border-radius: 50%;
+  font-family: "Cherry Cream Soda";
+  font-size: 30px;
+}
+.li-questiontype:hover {
+  background-color: rgb(167, 4, 167);
+  cursor:pointer;
+}
