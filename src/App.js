@@ -5,6 +5,7 @@ import Star from './assets/images/star.png';
 import Check from './assets/images/check.png';
 import RedX from './assets/images/redx.png';
 import Blank from './assets/images/blank.png';
+import Logo from './assets/images/logo.jpg';
 
 
 
@@ -502,8 +503,10 @@ function App() {
 
   return (
     <div className="Giant-container">
-      <h1>Math Fact Trainer</h1>
-
+      <div className="banner-container">
+        <img className="logo-banner" src={Logo}></img>
+        <h1 className= "title-banner">Math Fact Trainer</h1>
+      </div>
       <ul className="ul-questiontype"> 
        <div>
         {/* <li>
@@ -547,11 +550,9 @@ function App() {
 
 
       <p className="Giant-container-p">Use the math fact trainer to improve your math skills. If you miss any questions it will adjust to show you more of that type until you get it correct.</p>
-       <ul className="ul-nav"> 
+       {/* <ul className="ul-nav"> 
        <div>
-        {/* <li>
-          <a className="nav-bar" href="default.asp">Home</a>
-        </li> */}
+
         <li>
         <button className="nav-bar"
           onClick={() => {
@@ -584,7 +585,7 @@ function App() {
         </li>
 
         </div>
-      </ul>
+      </ul> */}
       {questionList.filter(r => r.status !== '').length > 10 ? null:(
       <div className="problem-card">
       <div className="card-title">

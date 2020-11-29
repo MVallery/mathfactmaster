@@ -3,12 +3,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@700&display=swap');
 
+.title-banner {
+  /* background-image: url(./assets/images/art-header.png); */
+  
+  color:white;
+  text-shadow:1px 2px 1px black;
+  justify-content:center;
+  align-items: center;
+}
+.banner-container {
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  background-color:rgb(122, 98, 122);
+  /* position:absolute; */
+  padding:0px;
+  top:0px;
+  /* display:flex; */
+  margin:0px;
+  width:100vw;
+  height: 100px;
+}
+.logo-banner {
+  border-radius: 50%;
+  width:60px;
+  height:60px;
+  background-color:rgb(122, 98, 122);
+  box-shadow: 4px 2px 5px rgb(77, 77, 77);
+}
 .Giant-container {
   display:flex;
   height: 100vh;
   width: 100vw;
   align-items:center;
- justify-content:center;
+ justify-content:flex-start;
  flex-direction:column;
 }
 .Giant-container-p {
@@ -106,7 +134,8 @@ button:hover {
   font-family: "Cherry Cream Soda";
   text-align:center;
   font-size: 35px;
-  background-color: #3f283f;
+  /* background-color: #3f283f; */
+  background-image: linear-gradient(to bottom right, rgb(56, 26, 56), rgb(117 67 130));
   color: white;
   background-clip:content-box;
   padding:0px 0px 5px 0px;
@@ -126,8 +155,9 @@ button:hover {
   color: white;
   justify-content:top;
   font-size: 35px;
-  background-color: #734173;
-  
+  /* background-color: #734173; */
+  /* background-image: linear-gradient(to bottom right, rgb(110, 60, 129), rgb(198, 141, 212)); */
+  background-image: linear-gradient(to bottom right, #734173, rgb(198, 141, 212));
 
 }
 .card-top p {
@@ -226,17 +256,24 @@ h1 {
   display:flex;
   list-style-type:none;
   border:none;
+  padding:0px;
 }
 .li-questiontype {
   padding: 0px 10px 0px 10px;
   margin: 0px 10px;
-  background-color: purple;
+  background-image: linear-gradient(to bottom right, rgb(90, 72, 100), rgb(202, 182, 207));
+  /* background-color: purple; */
   color: white;
   border-radius: 50%;
   font-family: "Cherry Cream Soda";
   font-size: 30px;
+  box-shadow: 5px 2px 15px 2px #a2a2a2
 }
 .li-questiontype:hover {
-  background-color: rgb(167, 4, 167);
+  /* background-color: rgb(167, 4, 167); */
+  background-image: linear-gradient(to bottom right, rgb(69, 53, 78), rgb(136, 82, 150));
+
   cursor:pointer;
+  box-shadow: 5px 2px 15px 2px #797979
+
 }
