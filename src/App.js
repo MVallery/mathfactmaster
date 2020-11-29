@@ -589,7 +589,7 @@ function App() {
       {questionList.filter(r => r.status !== '').length > 10 ? null:(
       <div className="problem-card">
       <div className="card-title">
-      <p>{questionList.length>0 ?
+      <p style= {{borderRadius:'20px'}}>{questionList.length>0 ?
         questionList[questionList.length-1].type : 'Multiplying '
         } Practice</p>
         
@@ -636,13 +636,14 @@ function App() {
           {/* <table>{questionCompletedDisplay()}</table> */}
          
           {questionList.filter(r => r.status !== '').length > 10 ? (
-            <div><p>Hi</p>
-            <button className="try-again" onClick={questionList.length>0?handleMainClick(questionList[0].type):handleMultiplyClick}>Try again!</button> 
+            <div>
+              {/* <p>Hi</p> */}
+            {/* <button className="try-again" onClick={questionList.length>0?handleMainClick(questionList[0].type):handleMultiplyClick}>Try again!</button>  */}
             <table> 
               
             <tbody>
             <tr>
-          <th colspan= "2">{questionList[0].type} Practice Results: {accuracy}</th>
+          <th colspan= "2">{questionList[0].type} Practice <br></br><div style={{display:'flex', justifyContent:'center',}}>Results: <div className="table-accuracy"> {accuracy}</div></div></th>
             </tr>
             <tr>
               <td>{questionList[0].text + questionList[0].correctAnswer}</td>
