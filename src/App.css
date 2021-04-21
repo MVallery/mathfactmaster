@@ -39,8 +39,8 @@
  justify-content:flex-start;
  flex-direction:column;
 }
-.Giant-container-p {
-  padding: 0px 200px 0px 200px
+.Giant-container p{
+  padding: 0px 20% 0px 20%
 }
 
 
@@ -211,12 +211,19 @@ tr:nth-child(even) {background-color: #cfbccf;}
 
 .try-again {
   border:none;
-  background-color: rgb(94, 28, 94)
+  width: 100px;
+  align-self: center;
+  margin: 5px;
+  border-bottom:6px solid rgb(94, 28, 94);
+
+  background-color: rgb(94, 28, 94);
+  color: white;
 
 }
 .try-again:hover {
-  border-bottom:6px solid white;
-  background-color:rgb(129, 55, 129)
+  border-bottom:1px solid white;
+  background-color:rgb(129, 55, 129);
+  cursor:pointer;
 }
 input {
   font-size: 40px;
@@ -292,4 +299,26 @@ h1 {
   cursor:pointer;
   box-shadow: 5px 2px 15px 2px #797979
 
+}
+.li-questiontype:focus {
+  outline:none;
+  background-image: linear-gradient(to bottom right, rgb(69, 53, 78), rgb(136, 82, 150));
+}
+
+@media(max-width:800px){
+  .Giant-container p{
+    padding: 0px 10% 0px 10%
+  }
+  .problem-card{
+    width:350px;
+  }
+  .inputAnswer{
+    margin-right:10px;
+  }
+  .question{
+    padding-left:10px;
+  }
+  .card-title{
+    height:50px;
+  }
 }
