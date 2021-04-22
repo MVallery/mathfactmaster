@@ -65,7 +65,7 @@ function App() {
     if (
       questionList.length > 0 &&
       (questionList.length > 10 ||
-        questionList[questionList.length - 1].type !== "Multiplying")
+      questionList[questionList.length - 1].type !== "Multiplying")
     ) {
       tempQuestionList = [questionData];
       setCount(0);
@@ -108,7 +108,7 @@ function App() {
     if (
       questionList.length > 0 &&
       (questionList.length > 10 ||
-        questionList[questionList.length - 1].type !== "Dividing")
+      questionList[questionList.length - 1].type !== "Dividing")
     ) {
       tempQuestionList = [questionData];
       setCount(0);
@@ -121,10 +121,10 @@ function App() {
   };
 
   const handleAddClick = (e) => {
-    var A1 = Math.floor(Math.random() * 9 + 2);
-    var A2 = Math.floor(Math.random() * 9 + 2);
-    var answer = A1 + A2;
-    var question = A1 + " + " + A2 + " = ";
+    var num1 = Math.floor(Math.random() * 9 + 2);
+    var num2 = Math.floor(Math.random() * 9 + 2);
+    var answer = num1 + num2;
+    var question = num1 + " + " + num2 + " = ";
     setAutoFocus("autoFocus");
 
     if (wrongAnswerList().length > 1) {
@@ -151,7 +151,7 @@ function App() {
     if (
       questionList.length > 0 &&
       (questionList.length > 10 ||
-        questionList[questionList.length - 1].type !== "Adding")
+      questionList[questionList.length - 1].type !== "Adding")
     ) {
       tempQuestionList = [questionData];
       setCount(0);
@@ -163,10 +163,10 @@ function App() {
     setAutoFocus("autoFocus");
   };
   const handleSubClick = (e) => {
-    var A1 = Math.floor(Math.random() * 9 + 2);
+    var num1 = Math.floor(Math.random() * 9 + 2);
     var answer = Math.floor(Math.random() * 9 + 2);
-    var T = A1 + answer;
-    var question = T + " - " + A1 + " = ";
+    var T = num1 + answer;
+    var question = T + " - " + num1 + " = ";
     setAutoFocus("autoFocus");
 
     if (wrongAnswerList().length > 1) {
@@ -193,7 +193,7 @@ function App() {
     if (
       questionList.length > 0 &&
       (questionList.length > 10 ||
-        questionList[questionList.length - 1].type !== "Subtracting")
+      questionList[questionList.length - 1].type !== "Subtracting")
     ) {
       tempQuestionList = [questionData];
       setCount(0);
@@ -239,36 +239,23 @@ function App() {
   const handleSubmitAnswer = (e) => {
     e.preventDefault();
     setInputAnswer("");
-    if (questionList.length < 100) {
+    if (questionList.length < 11) {
       if (
         String(questionList[questionList.length - 1].correctAnswer) ===
         String(questionList[questionList.length - 1].userAnswer)
       ) {
         var tempList = questionList;
         tempList[tempList.length - 1].image = Check;
-        setQuestionList(tempList);
-
-        var tempList = questionList;
         tempList[tempList.length - 1].status = "correct!";
         setQuestionList(tempList);
         setCount(count + 1);
 
-        if (questionList[questionList.length - 1].type === "Multiplying") {
-          setTimeout(handleMultiplyClick, 500);
-        } else if (
-          questionList[questionList.length - 1].type === "Subtracting"
-        ) {
-          setTimeout(handleSubClick, 2000);
-        } else if (questionList[questionList.length - 1].type === "Adding") {
-          setTimeout(handleAddClick, 2000);
-        } else {
-          setTimeout(handleDivideClick, 2000);
-        }
       } else {
         var tempList = questionList;
         tempList[tempList.length - 1].image = RedX;
         setQuestionList(tempList);
         let inputSelect = document.querySelectorAll("input");
+
         for (var i = 0; i < inputSelect.length; i++) {
           inputSelect[i].style.borderColor = "red";
         }
@@ -278,7 +265,7 @@ function App() {
             inputSelect[i].style.borderColor = "grey";
           }
         };
-        setTimeout(normalBackground, 2000);
+        setTimeout(normalBackground, 1500);
         var badMessages = [
           "Uh oh try again! ",
           "So close, yet so far away ",
@@ -304,18 +291,18 @@ function App() {
             ")"
         );
 
+      }
         if (questionList[questionList.length - 1].type === "Multiplying") {
-          setTimeout(handleMultiplyClick, 2000);
+          setTimeout(handleMultiplyClick, 1500);
         } else if (
           questionList[questionList.length - 1].type === "Subtracting"
         ) {
-          setTimeout(handleSubClick, 2000);
+          setTimeout(handleSubClick, 1500);
         } else if (questionList[questionList.length - 1].type === "Adding") {
-          setTimeout(handleAddClick, 2000);
+          setTimeout(handleAddClick, 1500);
         } else {
-          setTimeout(handleDivideClick, 2000);
+          setTimeout(handleDivideClick, 1500);
         }
-      }
       setAccuracy(
         Math.floor(
           ((questionList.length - wrongAnswerList().length) /
@@ -335,25 +322,49 @@ function App() {
       handleSubmitAnswer(e);
     }
   };
-  const questionTableData = questionList.map((question) => {
-      return (
+
+  const questionTableData = () => {
+    let tableData = []
+    for (let i=0;i< questionList.length-1; i++) {
+      tableData.push(
         <tr>
         <td>
-          {question.text + question.correctAnswer}
+          {questionList[i].text + questionList[i].correctAnswer}
         </td>
         <td>
           <img
             className="star"
             alt="redx"
-            src={question.image}
+            src={questionList[i].image}
           ></img>
-          {question.status === "wrong"
-            ? question.userAnswer
+          {questionList[i].status === "wrong"
+            ? questionList[i].userAnswer
             : null}
         </td>
       </tr>
       )
-    })
+    }
+    return tableData
+  }
+  // const questionTableData = questionList.map((question) => {
+  //     return (
+  //       <tr>
+  //       <td>
+  //         {question.text + question.correctAnswer}
+  //       </td>
+  //       <td>
+  //         <img
+  //           className="star"
+  //           alt="redx"
+  //           src={question.image}
+  //         ></img>
+  //         {question.status === "wrong"
+  //           ? question.userAnswer
+  //           : null}
+  //       </td>
+  //     </tr>
+  //     )
+  //   })
   
 
   return (
@@ -447,7 +458,8 @@ function App() {
                       </div>
                     </th>
                   </tr>
-                  {questionTableData}
+
+                  {questionTableData()}
                   
                 </tbody>
               </table>
