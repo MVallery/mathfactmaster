@@ -7,8 +7,9 @@ import RedX from "./assets/images/redx.png";
 import Blank from "./assets/images/blank.png";
 import Logo from "./assets/images/logo.jpg";
 import OperationButtons from './OperationButtons';
+import QuestionTableData from './QuestionTableData';
 
-function App() {
+const App = () =>{
   const [questionList, setQuestionList] = useState([]);
   const [inputAnswer, setInputAnswer] = useState("");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
@@ -204,6 +205,7 @@ function App() {
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
   };
+
   const handleInputAnswer = (e) => {
     e.preventDefault();
     var tempList = questionList;
@@ -211,9 +213,11 @@ function App() {
     setQuestionList(tempList);
     setInputAnswer(e.target.value);
   };
+
   const wrongAnswerList = () => {
     return questionList.filter((q) => q.status === "wrong");
   };
+
   const answerCheck = () => {
     var image = "";
     var answerDisplay = "";
@@ -236,84 +240,54 @@ function App() {
       return [image, answerDisplay];
     }
   };
+
   const handleSubmitAnswer = (e) => {
     e.preventDefault();
     setInputAnswer("");
-    if (questionList.length < 11) {
-      if (
-        String(questionList[questionList.length - 1].correctAnswer) ===
-        String(questionList[questionList.length - 1].userAnswer)
-      ) {
-        var tempList = questionList;
-        tempList[tempList.length - 1].image = Check;
-        tempList[tempList.length - 1].status = "correct!";
-        setQuestionList(tempList);
-        setCount(count + 1);
+    if (
+      String(questionList[questionList.length - 1].correctAnswer) ===
+      String(questionList[questionList.length - 1].userAnswer)
+    ) {
+      var tempList = questionList;
+      tempList[tempList.length - 1].image = Check;
+      tempList[tempList.length - 1].status = "correct!";
+      setQuestionList(tempList);
+      setCount(count + 1);
 
-      } else {
-        var tempList = questionList;
-        tempList[tempList.length - 1].image = RedX;
-        setQuestionList(tempList);
-        let inputSelect = document.querySelectorAll("input");
-
-        for (var i = 0; i < inputSelect.length; i++) {
-          inputSelect[i].style.borderColor = "red";
-        }
-
-        const normalBackground = () => {
-          for (var i = 0; i < inputSelect.length; i++) {
-            inputSelect[i].style.borderColor = "grey";
-          }
-        };
-        setTimeout(normalBackground, 1500);
-        var badMessages = [
-          "Uh oh try again! ",
-          "So close, yet so far away ",
-          "Better luck next time! ",
-          "I wish this was good news...",
-          "We can't all be perfect. ",
-          "Ouch, that sucks try again! ",
-        ];
-
-        var tempQuestionList = questionList;
-        tempQuestionList[tempQuestionList.length - 1].status = "wrong";
-        setQuestionList(tempQuestionList);
-
-        var randomMessage =
-          badMessages[Math.floor(Math.random() * badMessages.length)];
-        var tempList = [];
-        tempList.push(
-          questionList[questionList.length - 1].text +
-            " " +
-            questionList[questionList.length - 1].userAnswer +
-            ": Wrong (Correct answer: " +
-            questionList[questionList.length - 1].correctAnswer +
-            ")"
-        );
-
-      }
-        if (questionList[questionList.length - 1].type === "Multiplying") {
-          setTimeout(handleMultiplyClick, 1500);
-        } else if (
-          questionList[questionList.length - 1].type === "Subtracting"
-        ) {
-          setTimeout(handleSubClick, 1500);
-        } else if (questionList[questionList.length - 1].type === "Adding") {
-          setTimeout(handleAddClick, 1500);
-        } else {
-          setTimeout(handleDivideClick, 1500);
-        }
-      setAccuracy(
-        Math.floor(
-          ((questionList.length - wrongAnswerList().length) /
-            questionList.length) *
-            100
-        ).toString() + " %"
-      );
     } else {
-      // console.log(accuracy);
-      // setCompletedQList([]);
+      var tempList = questionList;
+      tempList[tempList.length - 1].image = RedX;
+      setQuestionList(tempList);
+      let inputSelect = document.querySelectorAll("input");
+
+      for (var i = 0; i < inputSelect.length; i++) {
+        inputSelect[i].style.borderColor = "red";
+      }
+
+      const normalBackground = () => {
+        for (var i = 0; i < inputSelect.length; i++) {
+          inputSelect[i].style.borderColor = "grey";
+        }
+      };
+      setTimeout(normalBackground, 1000);
     }
+      if (questionList[questionList.length - 1].type === "Multiplying") {
+        setTimeout(handleMultiplyClick, 1000);
+      } else if (questionList[questionList.length - 1].type === "Subtracting") {
+        setTimeout(handleSubClick, 1000);
+      } else if (questionList[questionList.length - 1].type === "Adding") {
+        setTimeout(handleAddClick, 1000);
+      } else {
+        setTimeout(handleDivideClick, 1000);
+      }
+    setAccuracy(
+      Math.floor(
+        ((questionList.length - wrongAnswerList().length) /
+          questionList.length) *
+          100
+      ).toString() + " %"
+    );
+
   };
 
   const keypress = (e) => {
@@ -323,49 +297,7 @@ function App() {
     }
   };
 
-  const questionTableData = () => {
-    let tableData = []
-    for (let i=0;i< questionList.length-1; i++) {
-      tableData.push(
-        <tr>
-        <td>
-          {questionList[i].text + questionList[i].correctAnswer}
-        </td>
-        <td>
-          <img
-            className="star"
-            alt="redx"
-            src={questionList[i].image}
-          ></img>
-          {questionList[i].status === "wrong"
-            ? questionList[i].userAnswer
-            : null}
-        </td>
-      </tr>
-      )
-    }
-    return tableData
-  }
-  // const questionTableData = questionList.map((question) => {
-  //     return (
-  //       <tr>
-  //       <td>
-  //         {question.text + question.correctAnswer}
-  //       </td>
-  //       <td>
-  //         <img
-  //           className="star"
-  //           alt="redx"
-  //           src={question.image}
-  //         ></img>
-  //         {question.status === "wrong"
-  //           ? question.userAnswer
-  //           : null}
-  //       </td>
-  //     </tr>
-  //     )
-  //   })
-  
+
 
   return (
     <div className="Giant-container">
@@ -430,40 +362,10 @@ function App() {
       )}
 
       <header className="App-header">
-        <div className="tableData">
+        <div>
           {questionList.filter((r) => r.status !== "").length > 10 ? (
-            <div>
-              <button
-                className="try-again"
-                onClick={() => {
-                  if (questionList.length > 0) {
-                    handleMainClick(questionList[0].type);
-                  } else {
-                    handleMultiplyClick();
-                  }
-                }}
-              >
-                Try again!
-              </button>
-              <table>
-                <tbody>
-                  <tr>
-                    <th colspan="2">
-                      {questionList[0].type} Practice <br></br>
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        Results:{" "}
-                        <div className="table-accuracy"> {accuracy}</div>
-                      </div>
-                    </th>
-                  </tr>
+            <QuestionTableData questionList={questionList} handleMainClick={handleMainClick} handleMultiplyClick={handleMultiplyClick} accuracy={accuracy}/>
 
-                  {questionTableData()}
-                  
-                </tbody>
-              </table>
-            </div>
           ) : null}
           {}
           {/* {accuracy} */}
