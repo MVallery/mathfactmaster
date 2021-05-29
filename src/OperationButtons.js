@@ -10,7 +10,7 @@ return (
       <button
         className="li-questiontype"
         onClick={() => {
-          props.handleMainClick("Multiplying");
+          props.handleOperationClick("Multiplying");
         }}
       >
         ×
@@ -20,7 +20,7 @@ return (
       <button
         className="li-questiontype"
         onClick={() => {
-          props.handleMainClick("Dividing");
+          props.handleOperationClick("Dividing");
         }}
       >
         ÷
@@ -30,7 +30,7 @@ return (
       <button
         className="li-questiontype"
         onClick={() => {
-          props.handleMainClick("Adding");
+          props.handleOperationClick("Adding");
         }}
       >
         +
@@ -40,7 +40,7 @@ return (
       <button
         className="li-questiontype"
         onClick={() => {
-          props.handleMainClick("Subtracting");
+          props.handleOperationClick("Subtracting");
         }}
       >
         -

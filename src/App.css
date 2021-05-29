@@ -15,7 +15,8 @@
   display:flex;
   justify-content:center;
   align-items: center;
-  background-color:rgb(122, 98, 122);
+  /* background-color:rgb(122, 98, 122); */
+  background-color: rgb(46 119 128);
   /* position:absolute; */
   padding:0px;
   top:0px;
@@ -28,13 +29,14 @@
   border-radius: 50%;
   width:60px;
   height:60px;
-  background-color:rgb(122, 98, 122);
+  background-color:rgb(255, 255, 255);
   box-shadow: 4px 2px 5px rgb(77, 77, 77);
 }
 .Giant-container {
   display:flex;
   height: 100vh;
   width: 100vw;
+  background-color: #9db8bb;
   align-items:center;
  justify-content:flex-start;
  flex-direction:column;
@@ -108,26 +110,36 @@ button:hover {
 
 
 } */
-
+.problem-card-container{
+  display:flex;
+  justify-content: center;
+  background-color:#779e91;
+  background-color: #dcdcdc;
+  height: 100vh;
+  width: 60vw
+}
 .problem-card {
   border: 10px solid #765c79;
-  color: rgb(117, 76, 133);
+  border: 10px solid #778f9e;
+  /* color: rgb(117, 76, 133); */
+  color:rgb(47 89 109);
   font-weight:bold;
-  font-size: 50px;
+  font-size: 70px;
   font-style: arial;
   text-shadow:1px 2px 1px black;  
   padding: 5px 0px 0px 0px;
   display:flex;
   border-radius: 30px;
-  height: 300px;
-  width: 500px;
+  margin-top:100px;
+  height: 400px;
+  width: 600px;
   text-align:center;
   justify-content: flex-start;
   flex-direction:column;
   /* align-items:flex-start; */
   /* animation-name: Problem-animation;
   animation-duration: 4s; */
-  background: transparent;
+  background: white;
   /* z-index:2; */
   box-shadow: 20px 20px 20px #888585;  /* background-image: linear-gradient(to right, red,indigo,blueviolet, indigo, red) */
 }
@@ -181,6 +193,7 @@ button:hover {
   flex-grow:2;
   /* flex-wrap:nowrap; */
   justify-content:left;
+  border-radius: 20px;
   align-items:center;
   text-shadow: 2px 2px 2px #bdb1b1
 }
@@ -191,19 +204,26 @@ button:hover {
   flex-direction: column;
   align-items:center;
 }
+.tableData-container{
+  width: 70vw;
+  height: calc(100vh - 100px);
+  background-color: #dcdcdc;
+}
 table {
-  border: 10px solid #765c79;
+  border: 10px solid #794080;
   font-size:30px;
   font-family:"Ranchers";
 }
-
+tbody{
+  background-color: white;
+}
 th {
-  background-color:#3f283f;
+  background-color:#1e5d65;
   color: white;
   font-size: 30px;
   font-family:"Cherry Cream Soda"
 }
-tr:nth-child(even) {background-color: #cfbccf;}
+tr:nth-child(even) {background-color: #c6e5e8;}
 
 .table-accuracy {
   font-family:"Ranchers";
@@ -234,7 +254,7 @@ tr:nth-child(even) {background-color: #cfbccf;}
   cursor:pointer;
 }
 input {
-  font-size: 40px;
+  font-size: 70px;
   font-weight: bold;
   border-radius: 40px;
   text-align:center;
@@ -252,8 +272,8 @@ input:focus{
   border-width: 5px 5px 5px 5px
 }
 input[type="text"] {
-  width: 100px;
-  height:50px;
+  width: 200px;
+  height: 100px;
 }
 
 
@@ -295,7 +315,8 @@ h1 {
   background-color: rgb(90, 72, 100);
 
   /* background-image: linear-gradient(to bottom right, rgb(90, 72, 100), rgb(202, 182, 207)); */
-  background-image: linear-gradient(to bottom right, rgb(202, 182, 207), rgb(90, 72, 100));
+  /* background-image: linear-gradient(to bottom right, rgb(202, 182, 207), rgb(90, 72, 100)); */
+  background-image: linear-gradient(to bottom right, rgb(203 139 204), #4a2644);
   font-size: 55px;
   line-height: 3px;
   width: 65px;

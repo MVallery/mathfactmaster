@@ -32,9 +32,9 @@ const QuestionTableData = props => {
       className="try-again"
       onClick={() => {
         if (questionList.length > 0) {
-          props.handleMainClick(questionList[0].type);
+          props.handleOperationClick(questionList[0].type);
         } else {
-          props.handleMultiplyClick();
+          props.handleOperationClick('Multiplying');
         }
       }}
     >

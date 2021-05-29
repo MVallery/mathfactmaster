@@ -5,154 +5,103 @@ import Star from "./assets/images/star.png";
 import Check from "./assets/images/check.png";
 import RedX from "./assets/images/redx.png";
 import Blank from "./assets/images/blank.png";
-import Logo from "./assets/images/logo.jpg";
+import Logo from "./assets/images/mfm-icon.svg";
 import OperationButtons from './OperationButtons';
 import QuestionTableData from './QuestionTableData';
 
 const App = () =>{
   const [questionList, setQuestionList] = useState([]);
+  const [correctedList, setCorrectedList] = useState([]);
   const [inputAnswer, setInputAnswer] = useState("");
   const [autoFocus, setAutoFocus] = useState("autoFocus");
   const [count, setCount] = useState(0);
   const [accuracy, setAccuracy] = useState("");
+  const [answerCheck, setAnswerCheck] = useState(['', ''])
 
   useEffect(() => {
-    handleMultiplyClick();
+    handleOperationClick('Multiplying');
   }, []);
 
   const handleClearQuestionList = () => {
     setQuestionList([]);
   };
-  const handleMainClick = (operation) => {
-    setQuestionList([]);
-
-    if (operation === "Multiplying") {
-      handleMultiplyClick();
-    } else if (operation === "Dividing") {
-      handleDivideClick();
-    } else if (operation === "Adding") {
-      handleAddClick();
-    } else {
-      handleSubClick();
-    }
-  };
-  const handleMultiplyClick = () => {
-    var E = Math.floor(Math.random() * 9 + 2);
-    var G = Math.floor(Math.random() * 9 + 2);
-    var answer = E * G;
-    var question = E + " × " + G + " = ";
-
-    if (wrongAnswerList().length > 1) {
-      var wrong = wrongAnswerList()[
-        Math.floor(Math.random() * wrongAnswerList().length)
-      ];
-      if (Math.random() < 0.6) {
-        question = wrong.text;
-        answer = wrong.correctAnswer;
-        console.log("This is a repeated wrong Q" + question);
-      }
-    }
-
-    var questionData = {
-      text: question,
-      type: "Multiplying",
-      correctAnswer: answer,
-      userAnswer: "",
-      status: "unanswered",
-      image: Blank,
-    };
-    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-
-    if (
-      questionList.length > 0 &&
-      (questionList.length > 10 ||
-      questionList[questionList.length - 1].type !== "Multiplying")
-    ) {
-      tempQuestionList = [questionData];
-      setCount(0);
-      setAccuracy(0);
-    } else {
-      tempQuestionList.push(questionData);
-    }
-    setQuestionList(tempQuestionList);
-    setAutoFocus("autoFocus");
-  };
-
-  const handleDivideClick = (e) => {
-    var G = Math.floor(Math.random() * 9 + 2);
-    var answer = Math.floor(Math.random() * 9 + 2);
-    var T = answer * G;
-    var question = T + " ÷ " + G + " = ";
-    setAutoFocus("autoFocus");
-
-    if (wrongAnswerList().length > 1) {
-      var wrong = wrongAnswerList()[
-        Math.floor(Math.random() * wrongAnswerList().length)
-      ];
-      if (Math.random() < 0.6) {
-        question = wrong.text;
-        answer = wrong.correctAnswer;
-        console.log("This is a repeated wrong Q" + question);
-      }
-    }
-
-    var questionData = {
-      text: question,
-      type: "Dividing",
-      correctAnswer: answer,
-      userAnswer: "",
-      status: "unanswered",
-      image: Blank,
-    };
-
-    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    if (
-      questionList.length > 0 &&
-      (questionList.length > 10 ||
-      questionList[questionList.length - 1].type !== "Dividing")
-    ) {
-      tempQuestionList = [questionData];
-      setCount(0);
-      setAccuracy(0);
-    } else {
-      tempQuestionList.push(questionData);
-    }
-    setQuestionList(tempQuestionList);
-    setAutoFocus("autoFocus");
-  };
-
-  const handleAddClick = (e) => {
+  // const handleMainClick = (operation) => {
+  //   setQuestionList([]);
+  //   handleOperationClick()
+  //   if (operation === "Multiplying") {
+  //     handleMultiplyClick();
+  //   } else if (operation === "Dividing") {
+  //     handleDivideClick();
+  //   } else if (operation === "Adding") {
+  //     handleAddClick();
+  //   } else {
+  //     handleSubClick();
+  //   }
+  // };
+  const handleOperationClick = (operation) => {
+    var answer;
+    var question;
     var num1 = Math.floor(Math.random() * 9 + 2);
     var num2 = Math.floor(Math.random() * 9 + 2);
-    var answer = num1 + num2;
-    var question = num1 + " + " + num2 + " = ";
+    switch (operation){
+      case 'Multiplying':
+        answer = num1 * num2;
+        question = num1 + " × " + num2 + " = ";
+        break;
+      case 'Dividing':
+        answer = num1
+        var total = answer * num2;
+        question = total + " ÷ " + num2 + " = ";
+        break;
+      case 'Adding':
+        answer = num1 + num2;
+        question = num1 + " + " + num2 + " = ";
+        break;
+      case 'Subtracting':
+        answer = num1
+        total = num2 + answer;
+        question = total + " - " + num2 + " = ";
+        break;
+    }
+
     setAutoFocus("autoFocus");
 
-    if (wrongAnswerList().length > 1) {
-      var wrong = wrongAnswerList()[
-        Math.floor(Math.random() * wrongAnswerList().length)
-      ];
-      if (Math.random() < 0.6) {
-        question = wrong.text;
-        answer = wrong.correctAnswer;
-        console.log("This is a repeated wrong Q" + question);
+
+    let wrongAnswers = wrongAnswerList();
+    if (wrongAnswers.length > 0) {
+      console.log('correctedList',correctedList)
+      console.log('wronganswerlist',wrongAnswerList())
+      var newWrongAnswerList = wrongAnswers.filter(wrong=>{
+        return(!correctedList.includes(wrong.text))
+      })
+      console.log('newwronganswerlist',newWrongAnswerList)
+      if (newWrongAnswerList.length>0){
+        var wrong = newWrongAnswerList[
+          Math.floor(Math.random() * wrongAnswers.length)
+        ];
+        if (Math.random() < 0.6) {
+          question = wrong.text;
+          answer = wrong.correctAnswer;
+          console.log("This is a repeated wrong Q" + question);
+        }
       }
+
     }
 
     var questionData = {
       text: question,
-      type: "Adding",
+      type: operation,
       correctAnswer: answer,
       userAnswer: "",
       status: "unanswered",
       image: Blank,
     };
-
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+
     if (
       questionList.length > 0 &&
       (questionList.length > 10 ||
-      questionList[questionList.length - 1].type !== "Adding")
+      questionList[questionList.length - 1].type !== operation)
     ) {
       tempQuestionList = [questionData];
       setCount(0);
@@ -162,49 +111,188 @@ const App = () =>{
     }
     setQuestionList(tempQuestionList);
     setAutoFocus("autoFocus");
-  };
-  const handleSubClick = (e) => {
-    var num1 = Math.floor(Math.random() * 9 + 2);
-    var answer = Math.floor(Math.random() * 9 + 2);
-    var T = num1 + answer;
-    var question = T + " - " + num1 + " = ";
-    setAutoFocus("autoFocus");
+  }
+  // const handleMultiplyClick = () => {
 
-    if (wrongAnswerList().length > 1) {
-      var wrong = wrongAnswerList()[
-        Math.floor(Math.random() * wrongAnswerList().length)
-      ];
-      if (Math.random() < 0.6) {
-        question = wrong.text;
-        answer = wrong.correctAnswer;
-        console.log("This is a repeated wrong Q" + question);
-      }
-    }
 
-    var questionData = {
-      text: question,
-      type: "Subtracting",
-      correctAnswer: answer,
-      userAnswer: "",
-      status: "unanswered",
-      image: Blank,
-    };
+  //   let wrongAnswers = wrongAnswerList();
+  //   if (wrongAnswerList().length > 0) {
+  //     console.log('correctedList',correctedList)
+  //     console.log('wronganswerlist',wrongAnswerList())
+  //     var newWrongAnswerList = wrongAnswerList().filter(wrong=>{
+  //       return(!correctedList.includes(wrong.text))
+  //     })
+  //     console.log('newwronganswerlist',newWrongAnswerList)
+  //     if (newWrongAnswerList.length>0){
+  //       var wrong = newWrongAnswerList[
+  //         Math.floor(Math.random() * wrongAnswerList().length)
+  //       ];
+  //       if (Math.random() < 0.6) {
+  //         question = wrong.text;
+  //         answer = wrong.correctAnswer;
+  //         console.log("This is a repeated wrong Q" + question);
+  //       }
+  //     }
 
-    var tempQuestionList = JSON.parse(JSON.stringify(questionList));
-    if (
-      questionList.length > 0 &&
-      (questionList.length > 10 ||
-      questionList[questionList.length - 1].type !== "Subtracting")
-    ) {
-      tempQuestionList = [questionData];
-      setCount(0);
-      setAccuracy(0);
-    } else {
-      tempQuestionList.push(questionData);
-    }
-    setQuestionList(tempQuestionList);
-    setAutoFocus("autoFocus");
-  };
+  //   }
+
+  //   var questionData = {
+  //     text: question,
+  //     type: "Multiplying",
+  //     correctAnswer: answer,
+  //     userAnswer: "",
+  //     status: "unanswered",
+  //     image: Blank,
+  //   };
+  //   var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+
+  //   if (
+  //     questionList.length > 0 &&
+  //     (questionList.length > 10 ||
+  //     questionList[questionList.length - 1].type !== "Multiplying")
+  //   ) {
+  //     tempQuestionList = [questionData];
+  //     setCount(0);
+  //     setAccuracy(0);
+  //   } else {
+  //     tempQuestionList.push(questionData);
+  //   }
+  //   setQuestionList(tempQuestionList);
+  //   setAutoFocus("autoFocus");
+  // };
+
+  // const handleDivideClick = (e) => {
+  //   var G = Math.floor(Math.random() * 9 + 2);
+  //   var answer = Math.floor(Math.random() * 9 + 2);
+  //   var T = answer * G;
+  //   var question = T + " ÷ " + G + " = ";
+  //   setAutoFocus("autoFocus");
+
+  //   if (wrongAnswerList().length > 0) {
+  //     var wrong = wrongAnswerList()[
+  //       Math.floor(Math.random() * wrongAnswerList().length)
+  //     ];
+  //     if (Math.random() < 0.6) {
+  //       question = wrong.text;
+  //       answer = wrong.correctAnswer;
+  //       console.log("This is a repeated wrong Q" + question);
+  //     }
+  //   }
+
+  //   var questionData = {
+  //     text: question,
+  //     type: "Dividing",
+  //     correctAnswer: answer,
+  //     userAnswer: "",
+  //     status: "unanswered",
+  //     image: Blank,
+  //   };
+
+  //   var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+  //   if (
+  //     questionList.length > 0 &&
+  //     (questionList.length > 10 ||
+  //     questionList[questionList.length - 1].type !== "Dividing")
+  //   ) {
+  //     tempQuestionList = [questionData];
+  //     setCount(0);
+  //     setAccuracy(0);
+  //   } else {
+  //     tempQuestionList.push(questionData);
+  //   }
+  //   setQuestionList(tempQuestionList);
+  //   setAutoFocus("autoFocus");
+  // };
+
+  // const handleAddClick = (e) => {
+  //   var num1 = Math.floor(Math.random() * 9 + 2);
+  //   var num2 = Math.floor(Math.random() * 9 + 2);
+  //   var answer = num1 + num2;
+  //   var question = num1 + " + " + num2 + " = ";
+  //   setAutoFocus("autoFocus");
+
+  //   if (wrongAnswerList().length > 0) {
+  //     console.log(wrongAnswerList())
+  //     var newWrongAnswerList = wrongAnswerList().filter(wrong=>{
+  //       return(!correctedList.includes(wrong))
+  //     })
+  //     console.log(newWrongAnswerList)
+  //     var wrong = newWrongAnswerList[
+  //       Math.floor(Math.random() * newWrongAnswerList().length)
+  //     ];
+  //     if (Math.random() < 0.6) {
+  //       question = wrong.text;
+  //       answer = wrong.correctAnswer;
+  //       console.log("This is a repeated wrong Q" + question);
+  //     }
+  //   }
+
+  //   var questionData = {
+  //     text: question,
+  //     type: "Adding",
+  //     correctAnswer: answer,
+  //     userAnswer: "",
+  //     status: "unanswered",
+  //     image: Blank,
+  //   };
+
+  //   var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+  //   if (
+  //     questionList.length > 0 &&
+  //     (questionList.length > 10 ||
+  //     questionList[questionList.length - 1].type !== "Adding")
+  //   ) {
+  //     tempQuestionList = [questionData];
+  //     setCount(0);
+  //     setAccuracy(0);
+  //   } else {
+  //     tempQuestionList.push(questionData);
+  //   }
+  //   setQuestionList(tempQuestionList);
+  //   setAutoFocus("autoFocus");
+  // };
+  // const handleSubClick = (e) => {
+  //   var num1 = Math.floor(Math.random() * 9 + 2);
+  //   var answer = Math.floor(Math.random() * 9 + 2);
+  //   var T = num1 + answer;
+  //   var question = T + " - " + num1 + " = ";
+  //   setAutoFocus("autoFocus");
+
+  //   if (wrongAnswerList().length > 0) {
+  //     var wrong = wrongAnswerList()[
+  //       Math.floor(Math.random() * wrongAnswerList().length)
+  //     ];
+  //     if (Math.random() < 0.6) {
+  //       question = wrong.text;
+  //       answer = wrong.correctAnswer;
+  //       console.log("This is a repeated wrong Q" + question);
+  //     }
+  //   }
+
+  //   var questionData = {
+  //     text: question,
+  //     type: "Subtracting",
+  //     correctAnswer: answer,
+  //     userAnswer: "",
+  //     status: "unanswered",
+  //     image: Blank,
+  //   };
+
+  //   var tempQuestionList = JSON.parse(JSON.stringify(questionList));
+  //   if (
+  //     questionList.length > 0 &&
+  //     (questionList.length > 10 ||
+  //     questionList[questionList.length - 1].type !== "Subtracting")
+  //   ) {
+  //     tempQuestionList = [questionData];
+  //     setCount(0);
+  //     setAccuracy(0);
+  //   } else {
+  //     tempQuestionList.push(questionData);
+  //   }
+  //   setQuestionList(tempQuestionList);
+  //   setAutoFocus("autoFocus");
+  // };
 
   const handleInputAnswer = (e) => {
     e.preventDefault();
@@ -218,27 +306,31 @@ const App = () =>{
     return questionList.filter((q) => q.status === "wrong");
   };
 
-  const answerCheck = () => {
+  const handleAnswerCheck = () => {
+    console.log(questionList[questionList.length - 1])
     var image = "";
     var answerDisplay = "";
     setTimeout(() => {
       image = "";
       answerDisplay = "";
     }, 3000);
+    console.log(questionList.length)
     if (questionList.length === 0) {
-      return ["", ""];
+      // return ["", ""];
     } else if (questionList[questionList.length - 1].status === "wrong") {
       image = <img className="star" alt="redx" src={RedX}></img>;
       answerDisplay =
         "  (" + questionList[questionList.length - 1].correctAnswer + ")";
-      return [image, answerDisplay];
+      // return [image, answerDisplay];
     } else if (questionList[questionList.length - 1].status === "correct!") {
       image = <img className="star" alt="check" src={Check}></img>;
       answerDisplay = "";
-      return [image, answerDisplay];
+      // return [image, answerDisplay];
     } else {
-      return [image, answerDisplay];
+      console.log('inside answerCheck else')
+      // return [image, answerDisplay];
     }
+    setAnswerCheck([image,answerDisplay])
   };
 
   const handleSubmitAnswer = (e) => {
@@ -253,11 +345,23 @@ const App = () =>{
       tempList[tempList.length - 1].status = "correct!";
       setQuestionList(tempList);
       setCount(count + 1);
-
+      setAnswerCheck([<img className='star' alt='check' src={Check}/>, ''])
+      let wrongAnswers = wrongAnswerList()
+      let temp = correctedList
+      for (i in wrongAnswers){
+        if (wrongAnswers[i].text===questionList[questionList.length-1].text){
+          temp.push(questionList[questionList.length-1].text)
+          setCorrectedList(temp)
+          break;
+        }
+      }
     } else {
       var tempList = questionList;
       tempList[tempList.length - 1].image = RedX;
+      tempList[tempList.length - 1].status = "wrong";
       setQuestionList(tempList);
+      setAnswerCheck([<img className='star' alt='redX' src={RedX}/>, "  (" + questionList[questionList.length - 1].correctAnswer + ")"])
+
       let inputSelect = document.querySelectorAll("input");
 
       for (var i = 0; i < inputSelect.length; i++) {
@@ -269,17 +373,21 @@ const App = () =>{
           inputSelect[i].style.borderColor = "grey";
         }
       };
-      setTimeout(normalBackground, 1000);
+      setTimeout(normalBackground, 1500);
     }
-      if (questionList[questionList.length - 1].type === "Multiplying") {
-        setTimeout(handleMultiplyClick, 1000);
-      } else if (questionList[questionList.length - 1].type === "Subtracting") {
-        setTimeout(handleSubClick, 1000);
-      } else if (questionList[questionList.length - 1].type === "Adding") {
-        setTimeout(handleAddClick, 1000);
-      } else {
-        setTimeout(handleDivideClick, 1000);
-      }
+    // handleAnswerCheck();
+    setTimeout(()=>{handleOperationClick(questionList[questionList.length -1].type)}, 1000)
+    setTimeout(()=>{setAnswerCheck(['', ''])}, 1000)
+
+      // if (questionList[questionList.length - 1].type === "Multiplying") {
+      //   setTimeout(handleMultiplyClick, 1000);
+      // } else if (questionList[questionList.length - 1].type === "Subtracting") {
+      //   setTimeout(handleSubClick, 1000);
+      // } else if (questionList[questionList.length - 1].type === "Adding") {
+      //   setTimeout(handleAddClick, 1000);
+      // } else {
+      //   setTimeout(handleDivideClick, 1000);
+      // }
     setAccuracy(
       Math.floor(
         ((questionList.length - wrongAnswerList().length) /
@@ -298,22 +406,16 @@ const App = () =>{
   };
 
 
-
   return (
     <div className="Giant-container">
       <div className="banner-container">
         <img className="logo-banner" src={Logo}></img>
         <h1 className="title-banner">Math Fact Master</h1>
+        <OperationButtons handleOperationClick={handleOperationClick}/>
       </div>
-      <OperationButtons handleMainClick={handleMainClick}/>
-
-      <p>
-        Math Fact Master will help you to improve your math fact skills. If you miss any
-        questions it will adjust to show you more of that type until you get it
-        correct.
-      </p>
 
       {questionList.filter((r) => r.status !== "").length > 10 ? null : (
+        <div className="problem-card-container">
         <div className="problem-card">
           <div className="card-title">
             <p style={{ borderRadius: "20px" }}>
@@ -354,23 +456,23 @@ const App = () =>{
             ></input>
 
             <div className="answerCheck">
-              {answerCheck()[0]}
-              {answerCheck()[1]}
+              
+              {answerCheck}
             </div>
           </div>
         </div>
+        </div>
       )}
 
-      <header className="App-header">
-        <div>
           {questionList.filter((r) => r.status !== "").length > 10 ? (
-            <QuestionTableData questionList={questionList} handleMainClick={handleMainClick} handleMultiplyClick={handleMultiplyClick} accuracy={accuracy}/>
+        <div className="tableData-container">
+
+            <QuestionTableData questionList={questionList} handleOperationClick={handleOperationClick} accuracy={accuracy}/>
+            </div>
 
           ) : null}
           {}
           {/* {accuracy} */}
-        </div>
-      </header>
     </div>
   );
 }
