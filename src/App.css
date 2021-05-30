@@ -36,7 +36,7 @@
   display:flex;
   height: 100vh;
   width: 100vw;
-  background-color: #9db8bb;
+  background-color: #9db8bb;;
   align-items:center;
  justify-content:flex-start;
  flex-direction:column;
@@ -347,14 +347,53 @@ h1 {
   }
   .problem-card{
     width:350px;
+    font-size: 50px;
   }
   .inputAnswer{
     margin-right:10px;
   }
   .question{
     padding-left:10px;
+    width:150px;
   }
   .card-title{
     height:50px;
+  }
+  .input[type='text']{
+    width: 100px;
+    height: 80px;
+  }
+  .input{
+    font-size:50px;
+  }
+  .li-questiontype{
+    width: 55px;
+    height: 54px;
+    font-size: 45px;
+  }
+  .title-banner{
+    font-size:1.7rem;
+  }
+}
+@media(max-width:700px){
+  .title-banner{
+    width:200px;
+    
+  }
+  .ul-questiontype{
+    flex-wrap:wrap;
+    width: 200px;
+  }
+  .banner-container{
+    height:120px;
+  }
+  .card-top{
+    font-size: 30px;
+  }
+  .problem-card{
+    font-size:43px;
+  }
+  .problem-card-container{
+    width:90vw;
   }
 }

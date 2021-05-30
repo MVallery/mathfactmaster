@@ -5,7 +5,7 @@ const OperationButtons = props => {
   
 return (
   <ul className="ul-questiontype">
-  <div>
+  <div style={{display:'flex'}}>
     <li>
       <button
         className="li-questiontype"
@@ -26,6 +26,8 @@ return (
         ÷
       </button>
     </li>
+    </div>
+    <div style={{display:'flex'}}>
     <li>
       <button
         className="li-questiontype"
