@@ -184,7 +184,7 @@ button:hover {
 
 }
 .question {
-  width: 200px;
+  width: 270px;
   padding: 0px 10px 0px 40px;
 }
 .question-answer {
@@ -192,10 +192,11 @@ button:hover {
   font-family: "Ranchers";
   flex-grow:2;
   /* flex-wrap:nowrap; */
-  justify-content:left;
+  justify-content:flex-start;
   border-radius: 20px;
   align-items:center;
   text-shadow: 2px 2px 2px #bdb1b1
+  
 }
 
 
