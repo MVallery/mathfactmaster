@@ -1,4 +1,5 @@
 import React from 'react';
+import Check from './assets/images/check.png'
 
 const QuestionTableData = props => {
   const {questionList} = props;
@@ -6,20 +7,22 @@ const QuestionTableData = props => {
   const questionTableData = () => {
     let tableData = []
     for (let i=0;i< questionList.length-1; i++) {
+    console.log(questionList[i].image)
+
       tableData.push(
         <tr>
         <td>
           {questionList[i].text + questionList[i].correctAnswer}
         </td>
-        <td>
-          <img
+        <td className="td-answerCheck">
+      
+          {questionList[i].status === "wrong"
+            ? <React.Fragment><p className="redX">X</p>({questionList[i].userAnswer})</React.Fragment>
+            : <img
             className="star"
             alt="redx"
-            src={questionList[i].image}
-          ></img>
-          {questionList[i].status === "wrong"
-            ? questionList[i].userAnswer
-            : null}
+            src={Check}
+          />}
         </td>
       </tr>
       )

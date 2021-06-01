@@ -24,9 +24,12 @@ const App = () =>{
 
   const handleClearQuestionList = () => {
     setQuestionList([]);
+    setCorrectedList([]);
+
   };
   
-  const handleOperationClick = (operation) => {
+  const handleOperationClick = (operation, source) => {
+    console.log(questionList)
     var answer;
     var question;
     var num1 = Math.floor(Math.random() * 9 + 2);
@@ -62,10 +65,14 @@ const App = () =>{
         return(!correctedList.includes(wrong.text))
       })
       console.log('newwronganswerlist',newWrongAnswerList)
+      
       if (newWrongAnswerList.length>0){
+        console.log(Math.floor(Math.random() * newWrongAnswerList.length-1));
+
         var wrong = newWrongAnswerList[
-          Math.floor(Math.random() * wrongAnswers.length)
+          Math.floor(Math.random() * newWrongAnswerList.length)
         ];
+        console.log(wrong)
         if (Math.random() < 0.6) {
           question = wrong.text;
           answer = wrong.correctAnswer;
@@ -81,14 +88,13 @@ const App = () =>{
       correctAnswer: answer,
       userAnswer: "",
       status: "unanswered",
-      image: Blank,
+      image: <p className="redX">X</p>,
     };
     var tempQuestionList = JSON.parse(JSON.stringify(questionList));
 
     if (
-      questionList.length > 0 &&
-      (questionList.length > 10 ||
-      questionList[questionList.length - 1].type !== operation)
+      (questionList.length > 0 &&
+      questionList.length > 10) || source==='buttonClick'
     ) {
       tempQuestionList = [questionData];
       setCount(0);
@@ -102,6 +108,7 @@ const App = () =>{
 
   const handleInputAnswer = (e) => {
     e.preventDefault();
+
     var tempList = questionList;
     tempList[tempList.length - 1].userAnswer = e.target.value;
     setQuestionList(tempList);
@@ -114,17 +121,18 @@ const App = () =>{
 
   const handleSubmitAnswer = (e) => {
     e.preventDefault();
+    setCount(count + 1);
+
     setInputAnswer("");
     if (
       String(questionList[questionList.length - 1].correctAnswer) ===
       String(questionList[questionList.length - 1].userAnswer)
     ) {
       var tempList = questionList;
-      tempList[tempList.length - 1].image = Check;
+      tempList[tempList.length - 1].image = <img className='star' alt='check' src={Check}/>;
       tempList[tempList.length - 1].status = "correct!";
       setQuestionList(tempList);
-      setCount(count + 1);
-      setAnswerCheck([<img className='star' alt='check' src={Check}/>, ''])
+      setAnswerCheck([<img className='star' alt='check' src={Check}/>], '')
       let wrongAnswers = wrongAnswerList()
       let temp = correctedList
       for (i in wrongAnswers){
@@ -136,10 +144,11 @@ const App = () =>{
       }
     } else {
       var tempList = questionList;
-      tempList[tempList.length - 1].image = RedX;
+      tempList[tempList.length - 1].image = <p className="redX">X</p>;
       tempList[tempList.length - 1].status = "wrong";
       setQuestionList(tempList);
-      setAnswerCheck([<img className='star' alt='redX' src={RedX}/>, "  (" + questionList[questionList.length - 1].correctAnswer + ")"])
+      // setAnswerCheck([<img className='star' alt='redX' src={RedX}/>, "  (" + questionList[questionList.length - 1].correctAnswer + ")"])
+      setAnswerCheck([<p className="redX">X</p>, "  (" + questionList[questionList.length - 1].correctAnswer + ")"])
 
       let inputSelect = document.querySelectorAll("input");
 
@@ -176,10 +185,10 @@ const App = () =>{
 
   return (
     <div className="Giant-container">
-      <div className="banner-container">
+      <div className="navbar-container">
         <img className="logo-banner" src={Logo}></img>
         <h1 className="title-banner">Math Fact Master</h1>
-        <OperationButtons handleOperationClick={handleOperationClick}/>
+        <OperationButtons handleOperationClick={handleOperationClick} handleClearQuestionList={handleClearQuestionList}/>
       </div>
 
       {questionList.filter((r) => r.status !== "").length > 10 ? null : (
@@ -197,7 +206,9 @@ const App = () =>{
             <p>
               Progress:{" "}
               {questionList.filter((r) => r.status === "correct!").length} /{" "}
-              {questionList.filter((r) => r.image !== Blank).length} ={" "}
+              {/* {questionList.filter(r=>r).length-1} ={" "}  */}
+              {count} ={" "} 
+
               {accuracy}
             </p>
           </div>

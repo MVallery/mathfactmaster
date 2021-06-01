@@ -1,16 +1,15 @@
 import React from 'react';
 
 const OperationButtons = props => {
-
-  
+ 
 return (
-  <ul className="ul-questiontype">
+  <ul className="operation-button-container">
   <div style={{display:'flex'}}>
     <li>
       <button
-        className="li-questiontype"
+        className="operation-button"
         onClick={() => {
-          props.handleOperationClick("Multiplying");
+          props.handleOperationClick("Multiplying", 'buttonClick');
         }}
       >
         ×
@@ -18,9 +17,9 @@ return (
     </li>
     <li>
       <button
-        className="li-questiontype"
+        className="operation-button"
         onClick={() => {
-          props.handleOperationClick("Dividing");
+          props.handleOperationClick("Dividing",'buttonClick');
         }}
       >
         ÷
@@ -30,9 +29,9 @@ return (
     <div style={{display:'flex'}}>
     <li>
       <button
-        className="li-questiontype"
+        className="operation-button"
         onClick={() => {
-          props.handleOperationClick("Adding");
+          props.handleOperationClick("Adding",'buttonClick');
         }}
       >
         +
@@ -40,9 +39,9 @@ return (
     </li>
     <li>
       <button
-        className="li-questiontype"
+        className="operation-button"
         onClick={() => {
-          props.handleOperationClick("Subtracting");
+            props.handleOperationClick("Subtracting",'buttonClick');         
         }}
       >
         -

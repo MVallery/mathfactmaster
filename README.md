@@ -1,6 +1,7 @@
 # Math Fact Master 
 
 An application that helps users to gain basic math fact mastery by instantly providing feedback and repeating missed questions more often until the user gets it correct. Scores users as they answer so they know how they are doing overall. After completing 10 questions the user is shown a review of questions completed and an overall score.
+
 ## Available Scripts
 
 In the project directory, you can run:
